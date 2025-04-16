@@ -8,10 +8,9 @@ import java.util.List;
 
 public class Printer {
   // Board dimensions
-  private static final int BOARD_SIZE = 8;
-  private static final int CELL_SIZE = 12;
-  private static final int TOTAL_CELL_SIZE = CELL_SIZE + 2;
-  private static final int TOTAL_BOARD_SIZE = BOARD_SIZE * TOTAL_CELL_SIZE + 1;
+  private static final int BOARD_CELLS = 8;
+  private static final int CELL_SIZE = 13;
+  private static final int TOTAL_BOARD_SIZE = (CELL_SIZE+1) * BOARD_CELLS + 1;
 
   // UTF-8 box drawing characters
   private static final char H_LINE = '\u2500';
@@ -26,77 +25,28 @@ public class Printer {
   private static final char B_TEE = '\u2534';
   private static final char CROSS = '\u253C';
 
-  public void printBoard() {
-    StringBuilder board = new StringBuilder();
+  private char[][] board;
 
-    // Load white pawn piece
-    List<String> pawnWhite = null;
-    try {
-      pawnWhite = loadPiece("pawn_w");
-    } catch (IOException e) {
-      System.err.println("Error loading pawn_w: " + e.getMessage());
-      return;
-    }
-
-    for (int row = 0; row < TOTAL_BOARD_SIZE; row++) {
-      for (int col = 0; col < TOTAL_BOARD_SIZE; col++) {
-        // Outer border
-        if (row == 0) {
-          if (col == 0) {
-            board.append(TL_CORNER);
-          } else if (col == TOTAL_BOARD_SIZE - 1) {
-            board.append(TR_CORNER);
-          } else if (col % TOTAL_CELL_SIZE == 0) {
-            board.append(T_TEE);
-          } else {
-            board.append(H_LINE);
-          }
-        } else if (row == TOTAL_BOARD_SIZE - 1) {
-          if (col == 0) {
-            board.append(BL_CORNER);
-          } else if (col == TOTAL_BOARD_SIZE - 1) {
-            board.append(BR_CORNER);
-          } else if (col % TOTAL_CELL_SIZE == 0) {
-            board.append(B_TEE);
-          } else {
-            board.append(H_LINE);
-          }
-        } else if (row % TOTAL_CELL_SIZE == 0) {
-          if (col == 0) {
-            board.append(L_TEE);
-          } else if (col == TOTAL_BOARD_SIZE - 1) {
-            board.append(R_TEE);
-          } else if (col % TOTAL_CELL_SIZE == 0) {
-            board.append(CROSS);
-          } else {
-            board.append(H_LINE);
-          }
-        } else {
-          // Vertical borders or cell content
-          if (col == 0 || col == TOTAL_BOARD_SIZE - 1 || col % TOTAL_CELL_SIZE == 0) {
-            board.append(V_LINE);
-          } else {
-            // Check if in second row (rank 2, a2-h2)
-            if (row >= TOTAL_CELL_SIZE && row < 2 * TOTAL_CELL_SIZE) {
-              // Calculate cell position
-              int cellRow = row - TOTAL_CELL_SIZE;
-              int cellCol = (col - 1) % TOTAL_CELL_SIZE;
-              if (cellCol < CELL_SIZE && cellRow < pawnWhite.size() && cellCol < pawnWhite.get(cellRow).length()) {
-                board.append(pawnWhite.get(cellRow).charAt(cellCol));
-              } else {
-                board.append(' ');
-              }
-            } else {
-              board.append(' ');
-            }
-          }
-        }
+  public Printer(){
+    this.board = new char[TOTAL_BOARD_SIZE][TOTAL_BOARD_SIZE];
+    for(int i=0; i < TOTAL_BOARD_SIZE; i++){
+      for(int j=0; j < TOTAL_BOARD_SIZE; j++){
+        if(this.isBorderPixel(i, j))
+          this.board[i][j] = '*';
+        else 
+          this.board[i][j] = ' ';
       }
-      board.append('\n');
+    }
+  }
+
+  public void printBoard() {
+    for(int i=0; i < TOTAL_BOARD_SIZE; i++){
+      for(int j=0; j < TOTAL_BOARD_SIZE; j++){
+        System.out.print(this.board[i][j]);
+      }
+      System.out.println();
     }
 
-    // Print the board
-    System.out.print(board.toString());
   }
 
   private List<String> loadPiece(String fileName) throws IOException {
@@ -114,6 +64,17 @@ public class Printer {
     } catch (URISyntaxException e) {
       throw new IOException("Invalid URI for resource: " + path, e);
     }
+  }
+
+  private boolean isBorderPixel(int i, int j){
+    if(i == 0 || i == TOTAL_BOARD_SIZE-1)
+      return true;
+    if(j == 0 || j == TOTAL_BOARD_SIZE-1)
+      return true;
+    if(i % (CELL_SIZE+1) == 0 || j % (CELL_SIZE + 1) == 0)
+      return true;
+
+    return false;
   }
 
 }
