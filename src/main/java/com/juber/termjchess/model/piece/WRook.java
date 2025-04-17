@@ -1,4 +1,4 @@
-package com.juber.termjchess.model;
+package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidPieceStartPosition;
 

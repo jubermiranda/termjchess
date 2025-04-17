@@ -1,4 +1,4 @@
-package com.juber.termjchess.model;
+package com.juber.termjchess.model.piece;
 
 public abstract class BasePiece {
   protected boolean alive;

@@ -1,4 +1,4 @@
-package com.juber.termjchess.model;
+package com.juber.termjchess.model.board;
 
 import java.util.ArrayList;
 import java.util.HashMap;

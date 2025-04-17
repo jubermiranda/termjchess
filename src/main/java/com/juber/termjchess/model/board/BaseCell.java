@@ -1,4 +1,4 @@
-package com.juber.termjchess.model;
+package com.juber.termjchess.model.board;
 
 public abstract class BaseCell {
   protected int row;
