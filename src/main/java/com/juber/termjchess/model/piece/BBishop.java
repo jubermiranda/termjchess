@@ -1,9 +1,10 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidPieceStartPosition;
+import com.juber.termjchess.model.board.BaseCell;
 
-public class WPawn extends BasePiece{
-  public WPawn() {
+public class BBishop extends BasePiece{
+  public BBishop() {
     this.alive = true;
   }
 
@@ -14,7 +15,7 @@ public class WPawn extends BasePiece{
 
   @Override 
   public boolean isW(){
-    return true;
+    return false;
   }
 
   @Override 

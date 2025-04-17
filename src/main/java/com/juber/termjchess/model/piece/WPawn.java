@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidPieceStartPosition;
+import com.juber.termjchess.model.board.BaseCell;
 
 public class WPawn extends BasePiece{
   public WPawn() {
