@@ -1,5 +1,7 @@
 package com.juber.termjchess.model.piece;
 
+import com.juber.termjchess.model.board.BaseCell;
+
 public abstract class BasePiece {
   protected boolean alive;
 

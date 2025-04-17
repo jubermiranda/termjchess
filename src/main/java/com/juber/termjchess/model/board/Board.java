@@ -1,5 +1,8 @@
 package com.juber.termjchess.model.board;
 
+import com.juber.termjchess.model.Player;
+import com.juber.termjchess.model.piece.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

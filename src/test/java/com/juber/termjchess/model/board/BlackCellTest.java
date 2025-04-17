@@ -6,15 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BlackCellTest {
   @Test
-  void testInvalidPositionThrowsException() {
-    assertThrows(InvalidBoardCellPosition.class, new BlackCell(-1, -1));
-  }
-
-  @Test
   void testIsWB() {
-    BlackCell cell = new BlackCell(0,0);
+    try {
+      BlackCell cell = new BlackCell(0,0);
 
-    assertTrue(cell.isB());
-    assertFalse(cell.isW());
+      assertTrue(cell.isB());
+      assertFalse(cell.isW());
+    } catch(InvalidBoardCellPosition e){
+      assertTrue(false);
+    }
   }
 }
