@@ -4,17 +4,18 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BlackCellTest {
+public class WhiteCellTest {
   @Test
   void testIsWB() {
     try {
-      BlackCell cell = new BlackCell(0,0);
+      WhiteCell cell = new WhiteCell(0,1);
 
-      assertTrue(cell.isB());
-      assertFalse(cell.isW());
+      assertTrue(cell.isW());
+      assertFalse(cell.isB());
 
     } catch(InvalidBoardCellPosition e){
       assertTrue(false);
     }
   }
 }
+
