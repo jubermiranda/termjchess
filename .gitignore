@@ -1,5 +1,7 @@
 out
 out/*
+tools
+tools/*
 
 *.swp
 *.tmp
