@@ -10,7 +10,13 @@ public class BKnight extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return (
+        (Math.abs(this.position.getRow() - dst.getRow()) == 2) && 
+        (Math.abs(this.position.getCol() - dst.getCol()) == 1)
+    ) || (
+        (Math.abs(this.position.getCol() - dst.getCol()) == 2) && 
+        (Math.abs(this.position.getRow() - dst.getRow()) == 1)
+    );
   }
 
   @Override
