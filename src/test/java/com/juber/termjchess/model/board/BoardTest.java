@@ -25,9 +25,9 @@ public class BoardTest {
     try {
 
       Board b = new Board();
-      assertEquals(b.getTotalPiecesAmount(), STD_CHESS_PIECES_AMOUNT);
-      assertEquals(b.getBlackPiecesAmount(), STD_CHESS_B_PIECES_AMOUNT);
-      assertEquals(b.getWhitePiecesAmount(), STD_CHESS_W_PIECES_AMOUNT);
+      assertEquals(STD_CHESS_PIECES_AMOUNT, b.getTotalPiecesAmount());
+      assertEquals(STD_CHESS_B_PIECES_AMOUNT, b.getBlackPiecesAmount());
+      assertEquals(STD_CHESS_W_PIECES_AMOUNT, b.getWhitePiecesAmount());
 
     } catch( Exception e ){
       fail("unexpected exception...:" + e.getMessage());
