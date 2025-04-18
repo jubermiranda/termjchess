@@ -50,11 +50,26 @@ public class Board {
 
   private void createPieces() {
     this.pieces = new ArrayList<BasePiece>();
+    this.createPawns();
+    this.createKnights();
+    this.createBishops();
+    this.createRooks();
+    
+    this.createQueens();
+    this.createKings();
   }
 
   private void setupBoard() {
     // TODO
   }
+
+  private void createPawns(){
+    for(int i=0; i < 8; i++){
+      this.pieces.add(BPawn(i));
+      this.pieces.add(WPawn(i));
+    }
+  }
+
 
   // as proximas funcoes podem ser apagadas,
   // apenas para usar nos testes
