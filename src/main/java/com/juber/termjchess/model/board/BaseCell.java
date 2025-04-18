@@ -35,4 +35,12 @@ public abstract class BaseCell {
     return (this.row == other.row && this.col == other.col);
   }
 
+  public int getRow(){
+    return this.row;
+  }
+
+  public int getCol(){
+    return this.col;
+  }
+
 }
