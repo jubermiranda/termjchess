@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BaseCellTest {
   @Test
   void testTemplate() {
-    boolean isImplemented = false;
-    assertTrue(isImplemented);
+    // abstract class
   }
 }
 
