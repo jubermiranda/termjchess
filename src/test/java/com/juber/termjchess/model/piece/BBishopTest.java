@@ -62,4 +62,24 @@ public class BBishopTest {
       fail("Invalid black cell position");
     }
   }
+
+  @Test
+  void testInvalidCanMoveTo(){
+    BBishop bishop = new BBishop(bCell);
+    BlackCell invalidMove;
+
+    try {
+
+      invalidMove = new BlackCell(6,2);
+      assertFalse(bishop.canMoveTo(invalidMove));
+      invalidMove = new BlackCell(6,0);
+      assertFalse(bishop.canMoveTo(invalidMove));
+      invalidMove = new BlackCell(5,5);
+      assertFalse(bishop.canMoveTo(invalidMove));
+
+    } catch (InvalidBoardCellPosition e){
+      fail("Invalid black cell position");
+    }
+
+  }
 }
