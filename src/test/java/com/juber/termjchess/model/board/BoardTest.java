@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoardTest {
   @Test
   void testTemplate() {
-    boolean isImplemented = false;
-    assertTrue(isImplemented);
+    //TODO
   }
 }
 

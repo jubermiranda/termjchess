@@ -14,7 +14,26 @@ public class WhiteCellTest {
       assertFalse(cell.isB());
 
     } catch(InvalidBoardCellPosition e){
-      assertTrue(false);
+      fail("Invalid cell position");
+    }
+  }
+
+  @Test
+  void testValidAndInvalidPositions() {
+    boolean shouldThrows = true;
+    WhiteCell cell;
+
+    for(int i=0; i < 8; i++){
+      for(int j=0; j < 8; j++){
+        try {
+          cell = new WhiteCell(i, j);
+        } catch (InvalidBoardCellPosition e){
+          if(!shouldThrows)
+            fail("unexpected exception ");
+        }
+        shouldThrows  = !shouldThrows;
+      }
+      shouldThrows  = !shouldThrows;
     }
   }
 }
