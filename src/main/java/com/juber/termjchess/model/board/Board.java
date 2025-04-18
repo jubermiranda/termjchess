@@ -18,16 +18,46 @@ public class Board {
 
   public Board() throws Exception {
     try {
+
       this.createBoard();
       this.createPieces();
       this.setupBoard();
+
     } catch (InvalidBoardCellPosition e){
       throw new Exception("error creating board cells");
     }
   }
 
   public String whatsOnCell(String cell) {
-    return "nothing";
+    if(!this.piecesOnBoard.containsKey(cell))
+      return "";
+
+    BasePiece piece = this.piecesOnBoard.get(cell);
+
+    if(piece instanceof WPawn)
+      return "w_pawn";
+    if(piece instanceof BPawn)
+      return "b_pawn";
+    if(piece instanceof WKnight)
+      return "w_knight";
+    if(piece instanceof BKnight)
+      return "b_knight";
+    if(piece instanceof WBishop)
+      return "w_bishop";
+    if(piece instanceof BBishop)
+      return "b_bishop";
+    if(piece instanceof WRook)
+      return "w_rook";
+    if(piece instanceof BRook)
+      return "b_rook";
+    if(piece instanceof WQueen)
+      return "w_queen";
+    if(piece instanceof BQueen)
+      return "b_queen";
+    if(piece instanceof WKing)
+      return "w_king";
+    else
+      return "b_king";
   }
 
   private void createBoard() throws InvalidBoardCellPosition {
@@ -60,7 +90,12 @@ public class Board {
   }
 
   private void setupBoard() {
-    // TODO
+    assert(this.boardCells.size() == 64);
+    assert(this.pieces.size() == 32);
+    this.piecesOnBoard = new HashMap<String, BasePiece>();
+
+    for(BasePiece p: this.pieces)
+      this.piecesOnBoard.put(p.getPositionName(), p);
   }
 
   private void createPawns(){
@@ -101,8 +136,8 @@ public class Board {
   }
 
   private void createKings(){
-    this.pieces.add( new WQueen(this.boardCells.get(4)) );
-    this.pieces.add( new BQueen(this.boardCells.get(60)) );
+    this.pieces.add( new WKing(this.boardCells.get(4)) );
+    this.pieces.add( new BKing(this.boardCells.get(60)) );
   }
 
   // as proximas funcoes podem ser apagadas,
