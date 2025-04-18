@@ -56,9 +56,33 @@ public class Board {
     // TODO
   }
 
-  // essa funcao pode ser apagada,
+  // as proximas funcoes podem ser apagadas,
   // apenas para usar nos testes
   public int getBoardSize() {
     return this.boardCells.size();
+  }
+  public int getTotalPiecesAmount(){
+    return this.pieces.size();
+  }
+  public int getBlackPiecesAmount(){
+    return this.countPieces('B');
+  }
+  public int getWhitePiecesAmount(){
+    return this.countPieces('W');
+  }
+
+  private int countPieces(char c){
+    int total = 0;
+    for(BasePiece p: this.pieces){
+      if(p.isB() && c == 'B'){
+        total++;
+        continue;
+      }
+      if(p.isW() && c == 'W'){
+        total++;
+      }
+    }
+
+    return total;
   }
 }
