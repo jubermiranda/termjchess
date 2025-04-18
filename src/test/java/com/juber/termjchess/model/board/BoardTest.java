@@ -12,6 +12,7 @@ public class BoardTest {
   static int STD_CHESS_B_PIECES_AMOUNT = 16;
   static int STD_CHESS_W_PIECES_AMOUNT = 16;
 
+  // testa se o tabuleiro tem 64 casas apos criar o obj
   @Test
   void testBoardSizeAfterCreation() {
     try {
@@ -22,6 +23,7 @@ public class BoardTest {
     }
   }
 
+  // testa se o tabuleiro tem 32 peças (16 brancas e 16 pretas)
   @Test
   void testPiecesAfterCreation() {
     try {
@@ -36,6 +38,27 @@ public class BoardTest {
     }
   }
 
+  // testa as casas que começam vazias
+  // {a-h}{5-6} 
+  @Test
+  void testEmptyCellsAfterCreation(){
+    try {
+
+      Board b = new Board();
+
+      for(char c = 'a'; c <= 'h'; c++){
+        for(int row = 3; row <= 6; row++){
+          String cell = c + Integer.toString(row);
+          assertEquals("", b.whatsOnCell(cell));
+        }
+      }
+
+    } catch (Exception e) {
+      fail("unexpected exception...:" + e.getMessage());
+    }
+  }
+
+  // testa a posicao initial dos peoes
   @Test
   void testPawnsPositionAfterCreation() {
     try {
@@ -53,6 +76,7 @@ public class BoardTest {
     }
   }
 
+  // similar ao teste dos peoes, mas para as torres
   @Test
   void testRooksPositionAfterCreation() {
     try {
@@ -132,6 +156,7 @@ public class BoardTest {
     }
   }
 
+  // auxiliar functions
   private Set<String> pawnValidPos() {
     Set<String> valids = new HashSet<>();
     // white pawns
