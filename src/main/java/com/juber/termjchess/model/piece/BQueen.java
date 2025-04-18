@@ -3,12 +3,12 @@ package com.juber.termjchess.model.piece;
 import com.juber.termjchess.model.board.BaseCell;
 
 public class BQueen extends BasePiece{
-  public BQueen() {
-    this.alive = true;
+  public BQueen(BaseCell pos) {
+    this.position = pos;
   }
 
   @Override
-  public boolean canMoveTo (BaseCell src, BaseCell dst){
+  public boolean canMoveTo (BaseCell dst){
     return false;
   }
 
@@ -20,11 +20,6 @@ public class BQueen extends BasePiece{
   @Override 
   public boolean isB(){
     return !this.isW();
-  }
-
-  @Override 
-  public char[][] sprite(){
-    return null;
   }
 
 }

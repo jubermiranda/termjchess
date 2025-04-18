@@ -65,11 +65,45 @@ public class Board {
 
   private void createPawns(){
     for(int i=0; i < 8; i++){
-      this.pieces.add(BPawn(i));
-      this.pieces.add(WPawn(i));
+      assert(this.boardCells.size() == 64);
+      this.pieces.add( new WPawn(this.boardCells.get(8+i)) );
+      this.pieces.add( new BPawn(this.boardCells.get(48+i)) );
     }
   }
 
+  private void createKnights(){
+    this.pieces.add( new WKnight(this.boardCells.get(1)) );
+    this.pieces.add( new WKnight(this.boardCells.get(6)) );
+
+    this.pieces.add( new BKnight(this.boardCells.get(57)) );
+    this.pieces.add( new BKnight(this.boardCells.get(62)) );
+  }
+
+  private void createBishops(){
+    this.pieces.add( new WBishop(this.boardCells.get(2)) );
+    this.pieces.add( new WBishop(this.boardCells.get(5)) );
+
+    this.pieces.add( new BBishop(this.boardCells.get(58)) );
+    this.pieces.add( new BBishop(this.boardCells.get(61)) );
+  }
+
+  private void createRooks(){
+    this.pieces.add( new WRook(this.boardCells.get(0)) );
+    this.pieces.add( new WRook(this.boardCells.get(7)) );
+
+    this.pieces.add( new BRook(this.boardCells.get(56)) );
+    this.pieces.add( new BRook(this.boardCells.get(63)) );
+  }
+
+  private void createQueens(){
+    this.pieces.add( new WQueen(this.boardCells.get(3)) );
+    this.pieces.add( new BQueen(this.boardCells.get(59)) );
+  }
+
+  private void createKings(){
+    this.pieces.add( new WQueen(this.boardCells.get(4)) );
+    this.pieces.add( new BQueen(this.boardCells.get(60)) );
+  }
 
   // as proximas funcoes podem ser apagadas,
   // apenas para usar nos testes

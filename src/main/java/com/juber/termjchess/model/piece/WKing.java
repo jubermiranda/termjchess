@@ -3,12 +3,12 @@ package com.juber.termjchess.model.piece;
 import com.juber.termjchess.model.board.BaseCell;
 
 public class WKing extends BasePiece{
-  public WKing() {
-    this.alive = true;
+  public WKing(BaseCell pos) {
+    this.position = pos;
   }
 
   @Override
-  public boolean canMoveTo (BaseCell src, BaseCell dst){
+  public boolean canMoveTo (BaseCell dst){
     return false;
   }
 
@@ -20,11 +20,6 @@ public class WKing extends BasePiece{
   @Override 
   public boolean isB(){
     return !this.isW();
-  }
-
-  @Override 
-  public char[][] sprite(){
-    return null;
   }
 
 }

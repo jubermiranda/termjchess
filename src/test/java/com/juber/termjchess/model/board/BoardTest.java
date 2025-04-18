@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
   static int STD_CHESS_BOARD_SIZE = 64;
-  static int STD_CHESS_PIECES_AMOUNT = 64;
-  static int STD_CHESS_B_PIECES_AMOUNT = 64;
-  static int STD_CHESS_W_PIECES_AMOUNT = 64;
+  static int STD_CHESS_PIECES_AMOUNT = 32;
+  static int STD_CHESS_B_PIECES_AMOUNT = 16;
+  static int STD_CHESS_W_PIECES_AMOUNT = 16;
 
   @Test
   void testBoardSizeAfterCreation() {

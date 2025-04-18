@@ -3,12 +3,12 @@ package com.juber.termjchess.model.piece;
 import com.juber.termjchess.model.board.BaseCell;
 
 public class BRook extends BasePiece{
-  public BRook() {
-    this.alive = true;
+  public BRook(BaseCell pos) {
+    this.position = pos;
   }
 
   @Override
-  public boolean canMoveTo (BaseCell src, BaseCell dst){
+  public boolean canMoveTo (BaseCell dst){
     return false;
   }
 
@@ -20,11 +20,6 @@ public class BRook extends BasePiece{
   @Override 
   public boolean isB(){
     return !this.isW();
-  }
-
-  @Override 
-  public char[][] sprite(){
-    return null;
   }
 
 }
