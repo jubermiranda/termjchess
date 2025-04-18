@@ -1,7 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
-import com.juber.termjchess.model.exception.IllegalChessMovementException;
+import com.juber.termjchess.exception.IllegalChessMovementException;
 
 public class BPawn extends BasePiece{
   public BPawn(BaseCell pos) {

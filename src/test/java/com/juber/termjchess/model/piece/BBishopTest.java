@@ -35,4 +35,31 @@ public class BBishopTest {
     assertTrue(bishop.isB());
     assertFalse(bishop.isW());
   }
+
+  @Test
+  void testValidCanMoveTo(){
+    BBishop bishop = new BBishop(bCell);
+    BlackCell validMove;
+
+    try {
+
+      validMove = new BlackCell(6,4);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(6,6);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(5,3);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(5,7);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(4,2);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(3,1);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(2,0);
+      assertTrue(bishop.canMoveTo(validMove));
+
+    } catch (InvalidBoardCellPosition e){
+      fail("Invalid black cell position");
+    }
+  }
 }
