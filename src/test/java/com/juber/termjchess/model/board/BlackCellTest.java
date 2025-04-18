@@ -19,11 +19,12 @@ public class BlackCellTest {
     }
   }
 
-  // testamos as possiveis validas e invalidas casas pretas.
-  // no xadrez elas alternam.
-  // porem da ultima coluna de uma linha para a primeira coluna da proxima sao iguais
-  // por isso invertemos de novo shouldThrows entre os fors
-  // para 'desinverter o valor de novo'
+  // testa as possiveis validas e invalidas casas pretas.
+  // no xadrez elas alternam. entao usamos um boolean shoudThrow
+  // para indiquar quando seria esperado a excessao.
+  // seguindo metodo escolhido para percorrer (2 fors incrementais)
+  // como a ultima casa de uma linha é igual a primeira da proxima
+  // precisamos desinverter shouldThrow no fim do for mais interno
   @Test
   void testValidAndInvalidPositions() {
     boolean shouldThrows = false;
