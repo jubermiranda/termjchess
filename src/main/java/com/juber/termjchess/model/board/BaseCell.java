@@ -31,4 +31,8 @@ public abstract class BaseCell {
     return (this.col == other.col);
   }
 
+  public boolean isEquals(BaseCell other){
+    return (this.row == other.row && this.col == other.col);
+  }
+
 }
