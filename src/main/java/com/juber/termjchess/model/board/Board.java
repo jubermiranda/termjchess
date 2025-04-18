@@ -49,7 +49,7 @@ public class Board {
   }
 
   private void createPieces() {
-    // TODO
+    this.pieces = new ArrayList<BasePiece>();
   }
 
   private void setupBoard() {
