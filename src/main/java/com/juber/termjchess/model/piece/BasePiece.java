@@ -5,11 +5,11 @@ import com.juber.termjchess.model.board.BaseCell;
 public abstract class BasePiece {
   protected boolean alive;
 
-  protected abstract boolean canMoveTo(BaseCell src, BaseCell dst);
+  public abstract boolean canMoveTo(BaseCell src, BaseCell dst);
 
-  protected abstract boolean isW();
+  public abstract boolean isW();
 
-  protected abstract boolean isB();
+  public abstract boolean isB();
 
   protected abstract char[][] sprite();
 
