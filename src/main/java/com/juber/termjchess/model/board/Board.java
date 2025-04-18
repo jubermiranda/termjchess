@@ -12,8 +12,6 @@ public class Board {
   private ArrayList<BaseCell> boardCells;
   private ArrayList<BasePiece> pieces;
   private Map<String, BasePiece> piecesOnBoard;
-  private Player p1;
-  private Player p2;
   private boolean turn_0;
 
 
