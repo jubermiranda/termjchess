@@ -10,7 +10,7 @@ public class WRook extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return (this.position.isSameCol(dst) || this.position.isSameRow(dst));
   }
 
   @Override

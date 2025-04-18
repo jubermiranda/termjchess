@@ -10,7 +10,7 @@ public class WBishop extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return this.position.isSameDiagonal(dst);
   }
 
   @Override
