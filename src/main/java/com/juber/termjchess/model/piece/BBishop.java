@@ -10,16 +10,16 @@ public class BBishop extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return this.position.isSameDiagonal(dst);
   }
 
   @Override
   public void moveTo(BaseCell dst) throws IllegalChessMovementException{
-    return;
+    if(this.canMoveTo(dst))
+      this.position = dst;
+    else
+      throw new IllegalChessMovementException("cant move to this position");
   }
-
-  @Override
-  public void moveTo
 
   @Override 
   public boolean isW(){

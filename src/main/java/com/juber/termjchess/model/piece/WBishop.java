@@ -15,7 +15,10 @@ public class WBishop extends BasePiece{
 
   @Override
   public void moveTo(BaseCell dst) throws IllegalChessMovementException{
-    return;
+    if(this.canMoveTo(dst))
+      this.position = dst;
+    else
+      throw new IllegalChessMovementException("cant move to this position");
   }
 
   @Override 
