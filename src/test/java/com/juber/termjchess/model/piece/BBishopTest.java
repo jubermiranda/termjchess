@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
 
@@ -39,7 +40,7 @@ public class BBishopTest {
   @Test
   void testValidCanMoveTo(){
     BBishop bishop = new BBishop(bCell);
-    BlackCell validMove;
+    BaseCell validMove;
 
     try {
 

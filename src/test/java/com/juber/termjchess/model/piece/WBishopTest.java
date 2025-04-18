@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
 
@@ -22,7 +23,7 @@ public class WBishopTest {
     }
   }
 
-  // cria bispo preto nas duas casas iniciais
+  // cria bispo branco nas duas casas iniciais
   @Test
   void testIsWB() {
     WBishop bishop;
@@ -34,6 +35,59 @@ public class WBishopTest {
     bishop = new WBishop(wCell);
     assertTrue(bishop.isW());
     assertFalse(bishop.isB());
+  }
+
+  @Test
+  void testValidCanMoveTo(){
+    WBishop bishop = new WBishop(bCell);
+    BaseCell validMove;
+
+    try {
+
+      validMove = new BlackCell(1,1);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(2,0);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(1,3);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(2,4);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(3,5);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(4,6);
+      assertTrue(bishop.canMoveTo(validMove));
+      validMove = new BlackCell(5,7);
+      assertTrue(bishop.canMoveTo(validMove));
+
+    } catch (InvalidBoardCellPosition e){
+      fail("Invalid black cell position");
+    }
+  }
+
+  @Test
+  void testInvalidCanMoveTo(){
+    BBishop bishop = new BBishop(bCell);
+    BaseCell invalidMove;
+
+    try {
+
+      invalidMove = new BlackCell(2,2);
+      assertFalse(bishop.canMoveTo(invalidMove));
+      invalidMove = new WhiteCell(2,3);
+      assertFalse(bishop.canMoveTo(invalidMove));
+      invalidMove = new WhiteCell(7,0);
+      assertFalse(bishop.canMoveTo(invalidMove));
+
+    } catch (InvalidBoardCellPosition e){
+      fail("Invalid black cell position");
+    }
+
+  }
+
+  @Test
+  void testCantMoveToCrrPosition(){
+    BBishop bishop = new BBishop(bCell);
+    assertFalse(bishop.canMoveTo(bCell));
   }
 }
 
