@@ -10,7 +10,8 @@ public class BRook extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return (!this.position.isEquals(dst)) &&
+        (this.position.isSameCol(dst) || this.position.isSameRow(dst));
   }
 
   @Override
