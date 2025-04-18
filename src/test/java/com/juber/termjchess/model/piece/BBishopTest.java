@@ -82,4 +82,10 @@ public class BBishopTest {
     }
 
   }
+
+  @Test
+  void testCantMoveToCrrPosition(){
+    BBishop bishop = new BBishop(bCell);
+    assertFalse(bishop.canMoveTo(bCell));
+  }
 }
