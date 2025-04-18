@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
+import com.juber.termjchess.model.exception.IllegalChessMovementException;
 
 public class BBishop extends BasePiece{
   public BBishop(BaseCell pos) {
@@ -11,6 +12,14 @@ public class BBishop extends BasePiece{
   public boolean canMoveTo (BaseCell dst){
     return false;
   }
+
+  @Override
+  public void moveTo(BaseCell dst) throws IllegalChessMovementException{
+    return;
+  }
+
+  @Override
+  public void moveTo
 
   @Override 
   public boolean isW(){

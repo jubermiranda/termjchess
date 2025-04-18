@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
+import com.juber.termjchess.model.exception.IllegalChessMovementException;
 
 public class BRook extends BasePiece{
   public BRook(BaseCell pos) {
@@ -10,6 +11,11 @@ public class BRook extends BasePiece{
   @Override
   public boolean canMoveTo (BaseCell dst){
     return false;
+  }
+
+  @Override
+  public void moveTo(BaseCell dst) throws IllegalChessMovementException{
+    return;
   }
 
   @Override 
