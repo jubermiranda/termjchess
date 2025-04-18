@@ -1,6 +1,9 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
+
+import java.util.ArrayList;
+
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
 public class WPawn extends BasePiece{
@@ -29,6 +32,10 @@ public class WPawn extends BasePiece{
   @Override 
   public boolean isB(){
     return !this.isW();
+  }
+  @Override
+  public ArrayList<String> getValidMoves(){
+    return new ArrayList<>();
   }
 
 }

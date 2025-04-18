@@ -1,6 +1,9 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
+
+import java.util.ArrayList;
+
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
 public class WKing extends BasePiece{
@@ -31,5 +34,9 @@ public class WKing extends BasePiece{
     return !this.isW();
   }
 
+  @Override
+  public ArrayList<String> getValidMoves(){
+    return new ArrayList<>();
+  }
 }
 

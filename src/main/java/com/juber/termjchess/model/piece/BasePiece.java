@@ -1,6 +1,9 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
+
+import java.util.ArrayList;
+
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
 public abstract class BasePiece {
@@ -13,6 +16,8 @@ public abstract class BasePiece {
   public abstract boolean isW();
 
   public abstract boolean isB();
+
+  public abstract ArrayList<String> getValidMoves();
 
   protected boolean isAlive(){
     return (this.position != null);
@@ -27,4 +32,5 @@ public abstract class BasePiece {
   protected void kill(){
     this.position = null;
   }
+
 }

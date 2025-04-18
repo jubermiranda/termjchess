@@ -15,6 +15,16 @@ public abstract class BaseCell {
     return result;
   }
 
+  public static String cellName(int row, int col){
+    if(row < 0 || row > 7 || col < 0 || col > 7)
+      return "";
+
+    char c = (char) ((int) 'a' + col);
+    String result = c + Integer.toString(row + 1);
+
+    return result;
+  }
+
   public boolean isSameType(BaseCell other){
     return ((this.isW() && other.isW()) || (this.isB() && other.isB()));
   }
@@ -41,6 +51,13 @@ public abstract class BaseCell {
 
   public int getCol(){
     return this.col;
+  }
+
+  public static int getColFromName(String name){
+    return name.charAt(0) - 'a';
+  }
+  public static int getRowFromName(String name){
+    return name.charAt(1) - '0';
   }
 
 }

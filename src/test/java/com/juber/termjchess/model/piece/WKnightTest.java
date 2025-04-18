@@ -5,6 +5,8 @@ import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
 
+import com.juber.termjchess.util.TestUtils;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,10 +19,10 @@ public class WKnightTest {
       WhiteCell e4Cell = new WhiteCell(3, 4);
       WKnight knight = new WKnight(e4Cell);
 
-      ArrayList<BaseCell> validMoves = validMovesFrom(e4Cell);
+      ArrayList<String> validMoves = knight.getValidMoves();
 
-      for(BaseCell c: validMoves){
-        assertTrue(knight.canMoveTo(c));
+      for(String c: validMoves){
+        assertTrue(knight.canMoveTo(TestUtils.createCell(c)));
       }
 
     } catch (InvalidBoardCellPosition e){
@@ -44,51 +46,4 @@ public class WKnightTest {
     }
   }
 
-  private ArrayList<BaseCell> validMovesFrom(BaseCell src) {
-    int row = src.getRow();
-    int col = src.getCol();
-    ArrayList<BaseCell> result = new ArrayList<BaseCell>();
-    if (row + 2 < 8) {
-      if (col + 1 < 8)
-        result.add(this.createCell(row + 2, col + 1));
-      if (col - 1 >= 0)
-        result.add(this.createCell(row + 2, col - 1));
-    }
-    if (row - 2 >= 0) {
-      if (col + 1 < 8)
-        result.add(this.createCell(row - 2, col + 1));
-      if (col - 1 >= 0)
-        result.add(this.createCell(row - 2, col - 1));
-    }
-    if (col + 2 < 8) {
-      if (row + 1 < 8)
-        result.add(this.createCell(row + 1, col + 2));
-      if (row - 1 >= 0)
-        result.add(this.createCell(row - 1, col + 2));
-    }
-    if (col - 2 >= 0) {
-      if (row + 1 < 8)
-        result.add(this.createCell(row + 1, col - 2));
-      if (row - 1 >= 0)
-        result.add(this.createCell(row - 1, col - 2));
-    }
-
-    return result;
-  }
-
-  private BaseCell createCell(int row, int col) {
-    try {
-      BlackCell c = new BlackCell(row, col);
-      return c;
-
-    } catch (InvalidBoardCellPosition e) {
-      try {
-        WhiteCell c = new WhiteCell(row, col);
-        return c;
-
-      } catch (InvalidBoardCellPosition e2) {
-        return null;
-      }
-    }
-  }
 }
