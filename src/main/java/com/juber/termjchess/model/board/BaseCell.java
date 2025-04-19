@@ -57,7 +57,7 @@ public abstract class BaseCell {
     return name.charAt(0) - 'a';
   }
   public static int getRowFromName(String name){
-    return name.charAt(1) - '0';
+    return name.charAt(1) - '0' - 1;
   }
 
 }

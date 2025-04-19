@@ -4,9 +4,13 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
+import com.juber.termjchess.util.TestUtils;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 
 public class WBishopTest {
@@ -40,29 +44,16 @@ public class WBishopTest {
   @Test
   void testValidCanMoveTo(){
     WBishop bishop = new WBishop(bCell);
-    BaseCell validMove;
 
-    try {
+    ArrayList<String> validMoves = bishop.getValidMoves();
+    assertTrue(validMoves.size() > 0);
 
-      validMove = new BlackCell(1,1);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(2,0);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(1,3);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(2,4);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(3,5);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(4,6);
-      assertTrue(bishop.canMoveTo(validMove));
-      validMove = new BlackCell(5,7);
-      assertTrue(bishop.canMoveTo(validMove));
-
-    } catch (InvalidBoardCellPosition e){
-      fail("Invalid black cell position");
+    for(String c: validMoves){
+      assertTrue(bishop.canMoveTo(TestUtils.createCell(c)));
     }
+
   }
+
 
   @Test
   void testInvalidCanMoveTo(){
