@@ -8,17 +8,7 @@ import com.juber.termjchess.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.BeforeEach;
-
 public class BBishopTest {
-
-  @BeforeEach
-  public void setUp() {
-  }
-
-  // cria bispo preto nas duas casas iniciais
   @Test
   void testIsWB() {
     try {
