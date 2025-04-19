@@ -28,15 +28,15 @@ public class QueenTest {
     Queen queen;
 
     queen = new WQueen(bCell);
-    validMoves(queen);
+    validQueenMoves(queen);
 
     queen = new BQueen(bCell);
-    validMoves(queen);
+    validQueenMoves(queen);
   }
 
   @Test
   void testInvalidCanMoveTo(){
-    WQueen queen;
+    Queen queen;
 
     queen = new BQueen(bCell);
     invalidQueenMoves(queen);

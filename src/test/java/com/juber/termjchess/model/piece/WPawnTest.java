@@ -1,5 +1,10 @@
 package com.juber.termjchess.model.piece;
 
+import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.model.board.BaseCell;
+import com.juber.termjchess.model.board.BlackCell;
+import com.juber.termjchess.model.board.WhiteCell;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

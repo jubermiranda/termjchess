@@ -7,7 +7,7 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.WhiteCell;
 
-public class BKnightTest {
+public class WKnightTest {
   @Test
   void testIsWB() {
     try {

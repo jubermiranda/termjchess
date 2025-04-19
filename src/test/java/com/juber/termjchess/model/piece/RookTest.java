@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.ArrayList;
+
 public class RookTest {
   BlackCell bCell;
   WhiteCell wCell;

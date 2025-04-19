@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-public class Pawn extends BasePiece{
+public abstract class Pawn extends BasePiece{
   public Pawn(BaseCell pos) {
     this.position = pos;
   }

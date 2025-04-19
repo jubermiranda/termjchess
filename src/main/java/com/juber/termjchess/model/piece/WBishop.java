@@ -3,7 +3,7 @@ package com.juber.termjchess.model.piece;
 import com.juber.termjchess.model.board.BaseCell;
 
 public class WBishop extends Bishop {
-  public BBishop(BaseCell pos) {
+  public WBishop(BaseCell pos) {
     super(pos);
   }
 

@@ -3,7 +3,7 @@ package com.juber.termjchess.model.piece;
 import com.juber.termjchess.model.board.BaseCell;
 
 public class WKing extends King{
-  public BKing(BaseCell pos) {
+  public WKing(BaseCell pos) {
     super(pos);
   }
 

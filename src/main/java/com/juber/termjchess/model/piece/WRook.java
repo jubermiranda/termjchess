@@ -2,8 +2,8 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class WRook extends WRook{
-  public BRook(BaseCell pos) {
+public class WRook extends Rook{
+  public WRook(BaseCell pos) {
     super(pos);
   }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-public class Knight extends BasePiece{
+public abstract class Knight extends BasePiece{
   public Knight(BaseCell pos) {
     this.position = pos;
   }

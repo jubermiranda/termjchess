@@ -38,10 +38,10 @@ public class BishopTest {
 
   @Test
   void testInvalidCanMoveTo() {
-    WBishop wb = new WBishop(wCell);
+    WBishop wb = new WBishop(bCell);
     invalidBishopMoves(wb);
 
-    BBishop bb = new BBishop(wCell);
+    BBishop bb = new BBishop(bCell);
     invalidBishopMoves(bb);
   }
 
@@ -50,7 +50,7 @@ public class BishopTest {
     BBishop bb = new BBishop(bCell);
     assertFalse(bb.canMoveTo(bCell));
 
-    WhiteCell wb = new WBishop(bCell);
+    WBishop wb = new WBishop(bCell);
     assertFalse(wb.canMoveTo(bCell));
   }
 
