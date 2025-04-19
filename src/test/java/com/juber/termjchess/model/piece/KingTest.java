@@ -44,6 +44,46 @@ public class KingTest {
     invalidKingMoves(king);
   }
 
+  // testa o roque (moveimento envolvendo a torre e o rei)
+  // e1 e e8
+  @Test
+  void testCastling(){
+    King king;
+    Rook rook;
+
+    // testa roque com pecas brancas
+    try {
+      //minor clastling
+      king = new WKing(BaseCell.createCell("e1"));
+      rook = new WRook(BaseCell.createCell("h1"));
+      king.castling(rook);
+
+      //major clastling
+      king = new WKing(BaseCell.createCell("e1"));
+      rook = new WRook(BaseCell.createCell("a1"));
+      king.castling(rook);
+
+    } catch(IllegalChessMovementException e){
+      fail("error while tryin castling king and rook");
+    }
+
+    // testa roque com pecas pretas
+    try {
+      //minor clastling
+      king = new BKing(BaseCell.createCell("e8"));
+      rook = new BRook(BaseCell.createCell("h8"));
+      king.castling(rook);
+
+      //major clastling
+      king = new WKing(BaseCell.createCell("e8"));
+      rook = new WRook(BaseCell.createCell("a8"));
+      king.castling(rook);
+
+    } catch(IllegalChessMovementException e){
+      fail("error while tryin castling king and rook");
+    }
+  }
+
   // se estiver em um dos cantos, apenas 3 movimentos
   @Test
   void testKingHasTreeValidMovesFromCorner(){
