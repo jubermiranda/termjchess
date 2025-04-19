@@ -4,7 +4,6 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
-import com.juber.termjchess.util.TestUtils;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +49,7 @@ public class KingTest {
     assertTrue(validMoves.size() > 0);
 
     for(String c: validMoves){
-      assertTrue(king.canMoveTo(TestUtils.createCell(c)));
+      assertTrue(king.canMoveTo(BaseCell.createCell(c)));
     }
   }
 

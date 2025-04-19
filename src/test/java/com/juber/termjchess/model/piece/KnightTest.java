@@ -5,8 +5,6 @@ import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
 
-import com.juber.termjchess.util.TestUtils;
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,7 +49,7 @@ public class KnightTest {
     ArrayList<String> validMoves = knight.getValidMoves();
 
     for(String c: validMoves){
-      assertTrue(knight.canMoveTo(TestUtils.createCell(c)));
+      assertTrue(knight.canMoveTo(BaseCell.createCell(c)));
     }
   }
 

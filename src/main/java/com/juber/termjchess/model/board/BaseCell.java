@@ -1,5 +1,7 @@
 package com.juber.termjchess.model.board;
 
+import com.juber.termjchess.exception.InvalidBoardCellPosition;
+
 public abstract class BaseCell {
   protected int row;
   protected int col;
@@ -67,4 +69,26 @@ public abstract class BaseCell {
     return (Math.abs(src.col - dst.col));
   }
 
+  public static BaseCell createCell(int row, int col){
+    BaseCell c;
+    try {
+      c = new BlackCell(row, col);
+
+    } catch (InvalidBoardCellPosition e){
+      try {
+        c = new WhiteCell(row, col);
+
+      } catch (InvalidBoardCellPosition e2){
+        c = null;
+      }
+    } 
+
+    return c;
+  }
+
+  public static BaseCell createCell(String name){
+    int row = BaseCell.getRowFromName(name);
+    int col = BaseCell.getColFromName(name);
+    return BaseCell.createCell(row, col);
+  }
 }

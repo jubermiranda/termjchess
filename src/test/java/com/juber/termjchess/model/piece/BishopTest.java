@@ -4,13 +4,11 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
-import com.juber.termjchess.util.TestUtils;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 
 public class BishopTest {
@@ -59,7 +57,7 @@ public class BishopTest {
     assertTrue(validMoves.size() > 0);
 
     for (String c : validMoves) {
-      assertTrue(bishop.canMoveTo(TestUtils.createCell(c)));
+      assertTrue(bishop.canMoveTo(BaseCell.createCell(c)));
     }
   }
 

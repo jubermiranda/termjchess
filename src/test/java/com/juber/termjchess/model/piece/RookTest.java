@@ -4,7 +4,6 @@ import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
-import com.juber.termjchess.util.TestUtils;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,7 +52,7 @@ public class RookTest {
     assertTrue(validMoves.size() > 0);
 
     for (String c : validMoves) {
-      assertTrue(rook.canMoveTo(TestUtils.createCell(c)));
+      assertTrue(rook.canMoveTo(BaseCell.createCell(c)));
     }
   }
 
