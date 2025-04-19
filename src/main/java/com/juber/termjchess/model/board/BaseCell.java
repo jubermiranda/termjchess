@@ -69,6 +69,26 @@ public abstract class BaseCell {
     return (Math.abs(src.col - dst.col));
   }
 
+  public static String relativePos(BaseCell a, BaseCell b){
+    if(a.isEquals(b))
+      return "";
+    if( !a.isSameCol(b) || !a.isSameRow(b) || !a.isSameDiagonal(b))
+      return "";
+
+    String result;
+
+    if(b.getRow() - a.getRow() > 0)
+      result = "TOP";
+    else 
+      result = "BOT";
+    if(b.getCol() - a.getCol() > 0)
+      result += (result == "")?"RIGHT":"_RIGHT";
+    else 
+      result += (result == "")?"LEFT":"_LEFT";
+
+    return result;
+  }
+
   public static BaseCell createCell(int row, int col){
     BaseCell c;
     try {

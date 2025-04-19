@@ -45,7 +45,34 @@ public abstract class Queen extends BasePiece{
 
   @Override
   public ArrayList<String> getTrace(BaseCell dst){
-    return new ArrayList<>();
+    ArrayList<String> result = new ArrayList<String>();
+    String position = BaseCell.relativePos(this.position, dst);
+    BaseCell cell;
+    int row = this.position.getRow();
+    int col = this.position.getCol();
+
+    int i = 1;
+
+    do{
+      int newCol = row;
+      int newRow = col;
+      if(position.contains("TOP"))
+        newRow += i;
+      else 
+        if(position.contains("BOT"))
+          newRow -= i;
+      if(position.contains("LEFT"))
+        newCol -= i;
+      else 
+        if(position.contains("RIGHT"))
+          newCol += i;
+
+      cell = BaseCell.createCell(newRow, newCol);
+      if(!cell.isEquals(dst))
+        result.add(cell.cellName());
+    } while (!cell.isEquals(dst) && i <= 8);
+
+    return result;
   }
 }
 
