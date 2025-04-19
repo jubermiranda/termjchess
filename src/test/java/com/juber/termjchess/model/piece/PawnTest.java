@@ -52,7 +52,7 @@ public class PawnTest {
           BaseCell.createCell(cell.getRow()+1, cell.getCol())
       );
     } catch (IllegalChessMovementException e){
-      fail("unexpected error moving pawn");
+      fail(e.getMessage());
     }
 
     // verifica se tem apenas uma opcao de movimento apos o primeiro
