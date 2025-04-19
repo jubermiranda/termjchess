@@ -27,7 +27,36 @@ public abstract class Rook extends BasePiece {
 
   @Override
   public ArrayList<String> getValidMoves(){
-    return new ArrayList<>();
+    ArrayList<String> result = new ArrayList<>();
+
+    int row = this.position.getRow();
+    int col = this.position.getCol();
+    int i = 1;
+    boolean tryNext;
+    do {
+      tryNext = false;
+
+      if(row + i < 8){
+        tryNext = true;
+        result.add(BaseCell.cellName(row+i, col));
+      }
+      if(row - i >= 0){
+        tryNext = true;
+        result.add(BaseCell.cellName(row-i, col));
+      }
+      if(col + i < 8){
+        tryNext = true;
+        result.add(BaseCell.cellName(row, col+i));
+      }
+      if(col - i >= 0){
+        tryNext = true;
+        result.add(BaseCell.cellName(row, col-i));
+      }
+
+      i++;
+    } while(tryNext);
+
+    return result;
   }
 
 }
