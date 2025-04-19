@@ -2,41 +2,19 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-import java.util.ArrayList;
-
-import com.juber.termjchess.exception.IllegalChessMovementException;
-
-public class WQueen extends BasePiece{
-  public WQueen(BaseCell pos) {
-    this.position = pos;
-  }
-
-  @Override
-  public boolean canMoveTo (BaseCell dst){
-    return false;
-  }
-
-  @Override
-  public void moveTo(BaseCell dst) throws IllegalChessMovementException{
-    if(this.canMoveTo(dst))
-      this.position = dst;
-    else
-      throw new IllegalChessMovementException("cant move to this position");
+public class BQueen extends WQueen{
+  public BQueen(BaseCell pos) {
+    super(pos);
   }
 
   @Override 
   public boolean isW(){
-    return true;
+    return false;
   }
 
   @Override 
   public boolean isB(){
-    return !this.isW();
+    return true;
   }
-  @Override
-  public ArrayList<String> getValidMoves(){
-    return new ArrayList<>();
-  }
-
 }
 
