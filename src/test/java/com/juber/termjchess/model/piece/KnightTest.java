@@ -50,14 +50,14 @@ public class KnightTest {
   void testKnightHasTwoValidMovesFromCorner(){
     Knight knight;
 
-    Knight = new WKnight(BaseCell.createCell(0,0));
-    assertEquals(knight.getValidMoves(), 2);
-    Knight = new WKnight(BaseCell.createCell(0,7));
-    assertEquals(knight.getValidMoves(), 2);
-    Knight = new WKnight(BaseCell.createCell(7,0));
-    assertEquals(knight.getValidMoves(), 2);
-    Knight = new WKnight(BaseCell.createCell(7,7));
-    assertEquals(knight.getValidMoves(), 2);
+    knight = new WKnight(BaseCell.createCell(0,0));
+    assertEquals(knight.getValidMoves().size(), 2);
+    knight = new WKnight(BaseCell.createCell(0,7));
+    assertEquals(knight.getValidMoves().size(), 2);
+    knight = new WKnight(BaseCell.createCell(7,0));
+    assertEquals(knight.getValidMoves().size(), 2);
+    knight = new WKnight(BaseCell.createCell(7,7));
+    assertEquals(knight.getValidMoves().size(), 2);
   }
 
   // se estiver na borda (mas nao em um canto)
@@ -66,20 +66,20 @@ public class KnightTest {
   void testKnightHasFourValidMovesFromBorder(){
     Knight knight;
 
-    Knight = new WKnight(BaseCell.createCell(0,4));
-    assertEquals(knight.getValidMoves(), 4);
-    Knight = new WKnight(BaseCell.createCell(7,5));
-    assertEquals(knight.getValidMoves(), 4);
+    knight = new WKnight(BaseCell.createCell(0,4));
+    assertEquals(knight.getValidMoves().size(), 4);
+    knight = new WKnight(BaseCell.createCell(7,5));
+    assertEquals(knight.getValidMoves().size(), 4);
   }
 
   @Test
   void testKnightHasEightValidMovesIfNotInBorder(){
     Knight knight;
 
-    Knight = new WKnight(BaseCell.createCell(2,4));
-    assertEquals(knight.getValidMoves(), 8);
-    Knight = new WKnight(BaseCell.createCell(5,5));
-    assertEquals(knight.getValidMoves(), 8);
+    knight = new WKnight(BaseCell.createCell(2,4));
+    assertEquals(knight.getValidMoves().size(), 8);
+    knight = new WKnight(BaseCell.createCell(5,5));
+    assertEquals(knight.getValidMoves().size(), 8);
   }
 
   private void validKnightMoves(Knight knight) {
