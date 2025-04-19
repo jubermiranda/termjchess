@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.exception.IllegalChessMovementException;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
@@ -26,7 +27,7 @@ public class PawnTest {
   void testPawnCanMoveOnceCellForward(){
     Pawn pawn = new WPawn(cell);
     // cria nova casa uma linha a cima
-    BaseCell newCell = createCell(cell.getRow + 1, cell.getCol);
+    BaseCell newCell = BaseCell.createCell(cell.getRow() + 1, cell.getCol());
     assertTrue(pawn.canMoveTo(newCell));
   }
 
@@ -35,7 +36,7 @@ public class PawnTest {
     Pawn pawn = new WPawn(cell);
 
     // cria nova casa duas linhas para cima
-    BaseCell newCell = createCell(cell.getRow + 2, cell.getCol);
+    BaseCell newCell = BaseCell.createCell(cell.getRow() + 2, cell.getCol());
     assertTrue(pawn.canMoveTo(newCell));
   }
 
@@ -47,7 +48,9 @@ public class PawnTest {
     assertEquals(pawn.getValidMoves().size(), 2);
 
     try {
-      pawn.moveTo(cell.getRow() + 1, cell.getCol());
+      pawn.moveTo(
+          BaseCell.createCell(cell.getRow()+1, cell.getCol())
+      );
     } catch (IllegalChessMovementException e){
       fail("unexpected error moving pawn");
     }
@@ -59,35 +62,38 @@ public class PawnTest {
   @Test
   void testPawnCanNOTmoveDiagonal(){
     Pawn pawn = new WPawn(cell);
-    BaseCell newCell;
+
     // diagonal direita
-    newCell = createCell(cell.getRow + 1, cell.getCol + 1);
     assertThrows(IllegalChessMovementException.class, ()->{
-      pawn.moveTo(newCell);
+      pawn.moveTo(
+          BaseCell.createCell(cell.getRow() + 1, cell.getCol() + 1)
+      );
     });
 
     // diagonal esquerda
-    newCell = createCell(cell.getRow + 1, cell.getCol - 1);
     assertThrows(IllegalChessMovementException.class, ()->{
-      pawn.moveTo(newCell);
+      pawn.moveTo(
+          BaseCell.createCell(cell.getRow() + 1, cell.getCol() - 1)
+      );
     });
   }
 
   @Test
   void testPawnCanNOTmoveLeftRight(){
     Pawn pawn = new WPawn(cell);
-    BaseCell newCell;
 
     // direita
-    newCell = createCell(cell.getRow, cell.getCol + 1);
     assertThrows(IllegalChessMovementException.class, ()->{
-      pawn.moveTo(newCell);
+      pawn.moveTo(
+          BaseCell.createCell(cell.getRow(), cell.getCol() + 1)
+      );
     });
 
     // esquerda
-    newCell = createCell(cell.getRow, cell.getCol - 1);
     assertThrows(IllegalChessMovementException.class, ()->{
-      pawn.moveTo(newCell);
+      pawn.moveTo(
+          BaseCell.createCell(cell.getRow(), cell.getCol() - 1)
+      );
     });
   }
 
@@ -98,7 +104,7 @@ public class PawnTest {
     Pawn pawn = new WPawn(cell);
 
     // faz o primeiro movimento
-    BaseCell newCell = createCell(cell.getRow() + 1, cell.getCol());
+    BaseCell newCell = BaseCell.createCell(cell.getRow() + 1, cell.getCol());
     try {
 
       pawn.moveTo(newCell);
@@ -108,10 +114,10 @@ public class PawnTest {
     }
 
     //tenta mover duas casas para frente apos ja ter feito o primeiro movimento
-    newCell = createCell(newCell.getRow() + 2, newCell.getCol());
     assertThrows(IllegalChessMovementException.class, ()->{
-      pawn.moveTo(newCell);
+      pawn.moveTo(
+          BaseCell.createCell(newCell.getRow() + 2, newCell.getCol())
+      );
     });
-
   }
 }
