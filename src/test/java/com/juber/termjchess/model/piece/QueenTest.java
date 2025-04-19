@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.exception.IllegalChessMovementException;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
@@ -43,6 +44,22 @@ public class QueenTest {
     queen = new WQueen(cell);
     invalidQueenMoves(queen);
 
+  }
+
+  @Test
+  void testQueenMovements(){
+    Queen queen = new WQueen(BaseCell.createCell(0,0));
+
+    try {
+      //try horizontal move
+      queen.moveTo(BaseCell.createCell(0, 2));
+      //try vertical move
+      queen.moveTo(BaseCell.createCell(1, 2));
+      //try diagonal move
+      queen.moveTo(BaseCell.createCell(2, 1));
+    } catch (IllegalChessMovementException e){
+      fail("error while moving queen");
+    }
   }
 
   private void validQueenMoves(Queen queen){
