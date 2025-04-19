@@ -72,30 +72,30 @@ public class Board {
 
     BasePiece piece = this.piecesOnBoard.get(cell);
 
-    if(piece instanceof WPawn)
-      return "w_pawn";
     if(piece instanceof BPawn)
       return "b_pawn";
-    if(piece instanceof WKnight)
-      return "w_knight";
+    if(piece instanceof WPawn)
+      return "w_pawn";
     if(piece instanceof BKnight)
       return "b_knight";
-    if(piece instanceof WBishop)
-      return "w_bishop";
+    if(piece instanceof WKnight)
+      return "w_knight";
     if(piece instanceof BBishop)
       return "b_bishop";
-    if(piece instanceof WRook)
-      return "w_rook";
+    if(piece instanceof WBishop)
+      return "w_bishop";
     if(piece instanceof BRook)
       return "b_rook";
-    if(piece instanceof WQueen)
-      return "w_queen";
+    if(piece instanceof WRook)
+      return "w_rook";
     if(piece instanceof BQueen)
       return "b_queen";
-    if(piece instanceof WKing)
-      return "w_king";
-    else
+    if(piece instanceof WQueen)
+      return "w_queen";
+    if(piece instanceof BKing)
       return "b_king";
+    else
+      return "w_king";
   }
 
   private void createPawns(){

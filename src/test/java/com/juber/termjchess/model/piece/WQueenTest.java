@@ -1,13 +1,56 @@
 package com.juber.termjchess.model.piece;
 
+import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.model.board.BaseCell;
+import com.juber.termjchess.model.board.BlackCell;
+import com.juber.termjchess.model.board.WhiteCell;
+import com.juber.termjchess.util.TestUtils;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
 
 public class WQueenTest {
+  BlackCell bCell;
+
+  @BeforeEach
+  public void setUp() {
+    try {
+      bCell = new BlackCell(3, 4);
+    } catch (InvalidBoardCellPosition e) {
+      fail("unexpected error creating cell");
+    }
+  }
+
   @Test
-  void testTemplate() {
-    boolean isImplemented = false;
-    assertTrue(isImplemented);
+  void testValidCanMoveTo() {
+    WQueen queen = new WQueen(bCell);
+    ArrayList<String> validMoves = queen.getValidMoves();
+    assertTrue(validMoves.size() > 0);
+
+    for(String c: validMoves){
+      assertTrue(queen.canMoveTo(TestUtils.createCell(c)));
+    }
+
+  }
+
+  @Test
+  void testInvalidCanMoveTo(){
+    WQueen queen = new WQueen(bCell);
+    BaseCell invalidMove;
+
+    try {
+      invalidMove = new BlackCell(5,3);
+      assertFalse(queen.canMoveTo(invalidMove));
+      invalidMove = new WhiteCell(4,7);
+      assertFalse(queen.canMoveTo(invalidMove));
+      invalidMove = new WhiteCell(1,0);
+      assertFalse(queen.canMoveTo(invalidMove));
+
+    } catch (InvalidBoardCellPosition e){
+      fail("Invalid black cell position");
+    }
   }
 }
 
