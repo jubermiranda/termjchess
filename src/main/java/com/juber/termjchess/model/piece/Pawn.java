@@ -16,7 +16,18 @@ public abstract class Pawn extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    if(!this.position.isEquals(dst))
+      return false;
+
+    boolean result = ((
+          BaseCell.colDistance(this.position, dst) == 0
+      ) && (
+         (this.has_moved && BaseCell.rowDistance(this.position, dst) == 1)||
+         (!this.has_moved && BaseCell.rowDistance(this.position, dst) <= 2)
+      )
+    );
+
+    return result;
   }
 
   @Override
