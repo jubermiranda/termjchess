@@ -79,8 +79,8 @@ public abstract class Rook extends BasePiece {
     int col = this.position.getCol();
     int i = 1;
     do{
-      int newRow;
-      int newCol;
+      int newRow = row;
+      int newCol = col;
       if(position == "TOP")
         newRow += i;
       else if(position == "BOT")

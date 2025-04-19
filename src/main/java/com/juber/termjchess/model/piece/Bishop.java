@@ -77,8 +77,8 @@ public abstract class Bishop extends BasePiece {
     int col = this.position.getCol();
     int i = 1;
     do{
-      int newRow;
-      int newCol;
+      int newRow = row;
+      int newCol = col;
       if(position == "TOP_RIGHT"){
         newRow += i;
         newCol += i;
