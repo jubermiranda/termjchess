@@ -65,6 +65,39 @@ public abstract class Bishop extends BasePiece {
 
   @Override
   public ArrayList<String> getTrace(BaseCell dst){
-    return new ArrayList<>();
+    ArrayList<String> result = new ArrayList<String>();
+    if(this.position.isEquals(dst))
+      return result;
+    String position = BaseCell.relativePos(this.position, dst);
+    if(position == "")
+      return result;
+
+    BaseCell cell;
+    int row = this.position.getRow();
+    int col = this.position.getCol();
+    int i = 1;
+    do{
+      int newRow;
+      int newCol;
+      if(position == "TOP_RIGHT"){
+        newRow += i;
+        newCol += i;
+      } else if(position == "TOP_LEFT"){
+        newRow += i;
+        newCol -= i;
+      } else if(position == "BOT_RIGHT"){
+        newCol -= i;
+        newCol += i;
+      } else {
+        newCol -= i;
+        newCol -= i;
+      }
+
+      cell = BaseCell.createCell(newRow, newCol);
+      if(!cell.isEquals(dst))
+        result.add(cell.cellName());
+    } while (!cell.isEquals(dst) && i <= 8);
+
+    return result;
   }
 }

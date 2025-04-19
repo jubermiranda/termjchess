@@ -68,14 +68,19 @@ public abstract class Rook extends BasePiece {
   @Override
   public ArrayList<String> getTrace(BaseCell dst){
     ArrayList<String> result = new ArrayList<String>();
+    if(this.position.isEquals(dst))
+      return result;
     String position = BaseCell.relativePos(this.position, dst);
+    if(position == "")
+      return result;
+
     BaseCell cell;
     int row = this.position.getRow();
     int col = this.position.getCol();
-
     int i = 1;
-
     do{
+      int newRow;
+      int newCol;
       if(position == "TOP")
         newRow += i;
       else if(position == "BOT")
