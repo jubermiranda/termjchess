@@ -44,6 +44,55 @@ public class KingTest {
     invalidKingMoves(king);
   }
 
+  // se estiver em um dos cantos, apenas 3 movimentos
+  @Test
+  void testKingHasTreeValidMovesFromCorner(){
+    King king;
+
+    king = new WKing(BaseCell.createCell(0,0));
+    assertEquals(king.getValidMoves().size(), 3);
+
+    king = new WKing(BaseCell.createCell(0,7));
+    assertEquals(king.getValidMoves().size(), 3);
+
+    king = new WKing(BaseCell.createCell(7,0));
+    assertEquals(king.getValidMoves().size(), 3);
+
+    king = new WKing(BaseCell.createCell(7,7));
+    assertEquals(king.getValidMoves().size(), 3);
+  }
+
+  // se estiver perto de uma borda (mas nao em um canto)
+  // tem 5 movimentos possiveis
+  @Test
+  void testKingHasFiveValidMovesFromBorder(){
+    King king;
+
+    king = new WKing(BaseCell.createCell(0,4));
+    assertEquals(king.getValidMoves().size(), 5);
+
+    king = new WKing(BaseCell.createCell(2,0));
+    assertEquals(king.getValidMoves().size(), 5);
+
+    king = new WKing(BaseCell.createCell(7,5));
+    assertEquals(king.getValidMoves().size(), 5);
+
+    king = new WKing(BaseCell.createCell(3,7));
+    assertEquals(king.getValidMoves().size(), 5);
+  }
+
+  // tem oito movimentos possiveis se nao estiver em nenhuma borda
+  @Test
+  void testKingHasEightValidMovesIfNotInBorder(){
+    King king;
+
+    king = new WKing(BaseCell.createCell(4,2));
+    assertEquals(king.getValidMoves().size(), 8);
+    king = new WKing(BaseCell.createCell(2,4));
+    assertEquals(king.getValidMoves().size(), 8);
+  }
+
+
   private void validKingMoves(King king){
     ArrayList<String> validMoves = king.getValidMoves();
     assertTrue(validMoves.size() > 0);
