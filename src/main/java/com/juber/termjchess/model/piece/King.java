@@ -64,6 +64,11 @@ public abstract class King extends BasePiece{
     return result;
   }
 
+  @Override
+  public ArrayList<String> getTrace(BaseCell dst){
+    return new ArrayList<>();
+  }
+
   public void castling(Rook rook) throws IllegalChessMovementException{
     assert(rook.isB() == this.isB());
 

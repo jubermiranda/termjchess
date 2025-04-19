@@ -65,6 +65,11 @@ public abstract class Rook extends BasePiece {
     return result;
   }
 
+  @Override
+  public ArrayList<String> getTrace(BaseCell dst){
+    return new ArrayList<>();
+  }
+
   public boolean has_moved(){
     return this.has_moved;
   }

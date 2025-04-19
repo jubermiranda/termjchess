@@ -64,5 +64,9 @@ public abstract class Knight extends BasePiece{
     return result;
   }
 
+  @Override
+  public ArrayList<String> getTrace(BaseCell dst){
+    return new ArrayList<>();
+  }
 }
 
