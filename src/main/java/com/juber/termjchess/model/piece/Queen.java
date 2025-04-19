@@ -13,7 +13,13 @@ public abstract class Queen extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return (
+        !this.position.isEquals(dst)
+    ) && (
+        this.position.isSameDiagonal(dst) || 
+        this.position.isSameCol(dst) ||
+        this.position.isSameRow(dst)
+    );
   }
 
   @Override
@@ -26,7 +32,15 @@ public abstract class Queen extends BasePiece{
 
   @Override
   public ArrayList<String> getValidMoves(){
-    return new ArrayList<>();
+    ArrayList<String> result = new ArrayList<>();
+
+    BasePiece piece = new WRook(this.position);
+    result = piece.getValidMoves();
+    
+    piece = new WBishop(this.position);
+    result.addAll(piece.getValidMoves());
+
+    return result;
   }
 
 }
