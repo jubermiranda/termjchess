@@ -45,6 +45,43 @@ public class KnightTest {
     }
   }
 
+  // quando esta em um dos cantos tem apenas 2 movimentos possiveis
+  @Test
+  void testKnightHasTwoValidMovesFromCorner(){
+    Knight knight;
+
+    Knight = new WKnight(BaseCell.createCell(0,0));
+    assertEquals(knight.getValidMoves(), 2);
+    Knight = new WKnight(BaseCell.createCell(0,7));
+    assertEquals(knight.getValidMoves(), 2);
+    Knight = new WKnight(BaseCell.createCell(7,0));
+    assertEquals(knight.getValidMoves(), 2);
+    Knight = new WKnight(BaseCell.createCell(7,7));
+    assertEquals(knight.getValidMoves(), 2);
+  }
+
+  // se estiver na borda (mas nao em um canto)
+  // 4 movimentos possiveis
+  @Test
+  void testKnightHasFourValidMovesFromBorder(){
+    Knight knight;
+
+    Knight = new WKnight(BaseCell.createCell(0,4));
+    assertEquals(knight.getValidMoves(), 4);
+    Knight = new WKnight(BaseCell.createCell(7,5));
+    assertEquals(knight.getValidMoves(), 4);
+  }
+
+  @Test
+  void testKnightHasEightValidMovesIfNotInBorder(){
+    Knight knight;
+
+    Knight = new WKnight(BaseCell.createCell(2,4));
+    assertEquals(knight.getValidMoves(), 8);
+    Knight = new WKnight(BaseCell.createCell(5,5));
+    assertEquals(knight.getValidMoves(), 8);
+  }
+
   private void validKnightMoves(Knight knight) {
     ArrayList<String> validMoves = knight.getValidMoves();
 
