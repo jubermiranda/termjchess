@@ -19,6 +19,8 @@ public abstract class BasePiece {
 
   public abstract ArrayList<String> getValidMoves();
 
+  public abstract ArrayList<String> getTrace(BaseCell dst);
+
   protected boolean isAlive(){
     return (this.position != null);
   }
