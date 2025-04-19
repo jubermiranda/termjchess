@@ -2,19 +2,19 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BPawn extends WPawn{
-  public BPawn(BaseCell pos) {
+public class WPawn extends Pawn{
+  public WPawn(BaseCell pos) {
     super(pos);
   }
 
   @Override 
   public boolean isW(){
-    return false;
+    return true;
   }
 
   @Override 
   public boolean isB(){
-    return true;
+    return false;
   }
 }
 

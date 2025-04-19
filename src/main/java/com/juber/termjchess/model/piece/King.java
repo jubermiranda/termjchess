@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-public class WKing extends BasePiece{
-  public WKing(BaseCell pos) {
+public class King extends BasePiece{
+  public King(BaseCell pos) {
     this.position = pos;
   }
 
@@ -22,16 +22,6 @@ public class WKing extends BasePiece{
       this.position = dst;
     else
       throw new IllegalChessMovementException("cant move to this position");
-  }
-
-  @Override 
-  public boolean isW(){
-    return true;
-  }
-
-  @Override 
-  public boolean isB(){
-    return !this.isW();
   }
 
   @Override

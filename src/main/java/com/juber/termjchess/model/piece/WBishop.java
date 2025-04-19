@@ -2,19 +2,19 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BBishop extends WBishop {
+public class WBishop extends Bishop {
   public BBishop(BaseCell pos) {
     super(pos);
   }
 
   @Override
   public boolean isW() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isB() {
-    return true;
+    return false;
   }
 
 }

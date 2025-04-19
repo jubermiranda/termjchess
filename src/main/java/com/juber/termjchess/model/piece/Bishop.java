@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-public class WBishop extends BasePiece {
-  public WBishop(BaseCell pos) {
+public abstract class Bishop extends BasePiece {
+  public Bishop(BaseCell pos) {
     this.position = pos;
   }
 
@@ -23,16 +23,6 @@ public class WBishop extends BasePiece {
       this.position = dst;
     else
       throw new IllegalChessMovementException("cant move to this position");
-  }
-
-  @Override
-  public boolean isW() {
-    return true;
-  }
-
-  @Override
-  public boolean isB() {
-    return !this.isW();
   }
 
   @Override

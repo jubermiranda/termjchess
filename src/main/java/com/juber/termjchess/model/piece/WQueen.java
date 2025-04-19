@@ -2,19 +2,19 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BQueen extends WQueen{
-  public BQueen(BaseCell pos) {
+public class WQueen extends Queen{
+  public Queen(BaseCell pos) {
     super(pos);
   }
 
   @Override 
   public boolean isW(){
-    return false;
+    return true;
   }
 
   @Override 
   public boolean isB(){
-    return true;
+    return false;
   }
 }
 

@@ -2,7 +2,7 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BKnight extends WKnight{
+public class BKnight extends Knight{
   public BKnight(BaseCell pos) {
     super(pos);
   }

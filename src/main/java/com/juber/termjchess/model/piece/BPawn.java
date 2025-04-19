@@ -2,7 +2,7 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BPawn extends WPawn{
+public class BPawn extends Pawn{
   public BPawn(BaseCell pos) {
     super(pos);
   }

@@ -2,18 +2,18 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
-public class BRook extends WRook{
+public class WRook extends WRook{
   public BRook(BaseCell pos) {
     super(pos);
   }
 
   @Override 
   public boolean isW(){
-    return false;
+    return true;
   }
 
   @Override 
   public boolean isB(){
-    return true;
+    return false;
   }
 }

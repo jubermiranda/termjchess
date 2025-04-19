@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-public class WRook extends BasePiece {
-  public WRook(BaseCell pos) {
+public class Rook extends BasePiece {
+  public Rook(BaseCell pos) {
     this.position = pos;
   }
 
@@ -25,15 +25,6 @@ public class WRook extends BasePiece {
       throw new IllegalChessMovementException("cant move to this position");
   }
 
-  @Override
-  public boolean isW() {
-    return true;
-  }
-
-  @Override
-  public boolean isB() {
-    return !this.isW();
-  }
   @Override
   public ArrayList<String> getValidMoves(){
     return new ArrayList<>();
