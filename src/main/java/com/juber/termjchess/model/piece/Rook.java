@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
 public abstract class Rook extends BasePiece {
+  private boolean has_moved;
+
   public Rook(BaseCell pos) {
     this.position = pos;
+    this.has_moved = false;
   }
 
   @Override
@@ -19,8 +22,11 @@ public abstract class Rook extends BasePiece {
 
   @Override
   public void moveTo(BaseCell dst) throws IllegalChessMovementException {
-    if (this.canMoveTo(dst))
+    if (this.canMoveTo(dst)){
       this.position = dst;
+      if(!this.has_moved)
+        this.has_moved = true;
+    }
     else
       throw new IllegalChessMovementException("cant move to this position");
   }
@@ -59,4 +65,7 @@ public abstract class Rook extends BasePiece {
     return result;
   }
 
+  public boolean has_moved(){
+    return this.has_moved;
+  }
 }
