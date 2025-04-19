@@ -16,8 +16,8 @@ public class WRookTest {
   public void testIsWB(){
     try {
       WRook rook = new WRook(new BlackCell(7,7));
-      assertTrue(rook.isB());
-      assertFalse(rook.isW());
+      assertTrue(rook.isW());
+      assertFalse(rook.isB());
     } catch (InvalidBoardCellPosition e){
       fail("unexpected error creating cell");
     }

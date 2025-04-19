@@ -14,8 +14,8 @@ public class WQueenTest {
     try {
       WQueen queen = new WQueen(new WhiteCell(1, 0));
 
-      assertTrue(queen.isB());
-      assertFalse(queen.isW());
+      assertTrue(queen.isW());
+      assertFalse(queen.isB());
 
     } catch (InvalidBoardCellPosition e){
       fail("unexpected error creating cells");

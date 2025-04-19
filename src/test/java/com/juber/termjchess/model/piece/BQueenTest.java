@@ -11,7 +11,7 @@ public class BQueenTest {
   @Test
   void testIsWB() {
     try {
-      BQueen queen = new BQueen(new WhiteCell(7, 3));
+      BQueen queen = new BQueen(new BlackCell(7, 3));
 
       assertTrue(queen.isB());
       assertFalse(queen.isW());

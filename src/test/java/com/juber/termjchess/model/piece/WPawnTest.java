@@ -14,8 +14,8 @@ public class WPawnTest {
     try {
       WPawn pawn = new WPawn(new WhiteCell(1, 0));
 
-      assertTrue(pawn.isB());
-      assertFalse(pawn.isW());
+      assertTrue(pawn.isW());
+      assertFalse(pawn.isB());
 
     } catch (InvalidBoardCellPosition e){
       fail("unexpected error creating cells");

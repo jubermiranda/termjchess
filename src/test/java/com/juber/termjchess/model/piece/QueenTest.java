@@ -12,12 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 
 public class QueenTest {
-  BlackCell bCell;
+  BaseCell cell;
 
   @BeforeEach
   public void setUp() {
     try {
-      bCell = new BlackCell(3, 4);
+      cell = new WhiteCell(3, 4);
     } catch (InvalidBoardCellPosition e) {
       fail("unexpected error creating cell");
     }
@@ -27,10 +27,10 @@ public class QueenTest {
   void testValidCanMoveTo() {
     Queen queen;
 
-    queen = new WQueen(bCell);
+    queen = new WQueen(cell);
     validQueenMoves(queen);
 
-    queen = new BQueen(bCell);
+    queen = new BQueen(cell);
     validQueenMoves(queen);
   }
 
@@ -38,10 +38,10 @@ public class QueenTest {
   void testInvalidCanMoveTo(){
     Queen queen;
 
-    queen = new BQueen(bCell);
+    queen = new BQueen(cell);
     invalidQueenMoves(queen);
 
-    queen = new WQueen(bCell);
+    queen = new WQueen(cell);
     invalidQueenMoves(queen);
 
   }

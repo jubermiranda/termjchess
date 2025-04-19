@@ -15,8 +15,8 @@ public class WKingTest {
       WKing king;
 
       king = new WKing(bCell);
-      assertTrue(king.isB());
-      assertFalse(king.isW());
+      assertTrue(king.isW());
+      assertFalse(king.isB());
 
     } catch (InvalidBoardCellPosition e) {
       fail("unexpected error creating cell");

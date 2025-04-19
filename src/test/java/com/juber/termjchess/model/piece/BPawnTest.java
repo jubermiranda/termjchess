@@ -11,7 +11,7 @@ public class BPawnTest {
   @Test
   void testIsWB() {
     try {
-      BPawn pawn = new BPawn(new WhiteCell(6, 0));
+      BPawn pawn = new BPawn(new BlackCell(6, 0));
 
       assertTrue(pawn.isB());
       assertFalse(pawn.isW());
