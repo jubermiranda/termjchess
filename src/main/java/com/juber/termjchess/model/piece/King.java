@@ -64,16 +64,16 @@ public abstract class King extends BasePiece{
     return result;
   }
 
-  public void castling(Rook rook){
+  public void castling(Rook rook) throws IllegalChessMovementException{
     assert(rook.isB() == this.isB());
 
     if(this.has_moved || rook.has_moved())
-      throw IllegalChessMovementException("cant castle if kink or rook has moved");
+      throw new IllegalChessMovementException("cant castle if kink or rook has moved");
 
     int rookCol = BaseCell.getColFromName(rook.getPositionName());
     int distance = this.position.getCol() - rookCol;
-    if(distance != 4 || distance != -3)
-      throw IllegalChessMovementException("invalid initial position");
+    if(distance != 4 && distance != -3)
+      throw new IllegalChessMovementException("invalid initial position");
 
     BaseCell newKingPos;
     BaseCell newRookPos;
@@ -87,13 +87,10 @@ public abstract class King extends BasePiece{
         return;
 
       } catch (IllegalChessMovementException e){
-        throw IllegalChessMovementException("error while mving rook");
+        throw new IllegalChessMovementException("error while mving rook");
       }
     }
 
-    BaseCell newKingPos;
-    BaseCell newRookPos;
-    
     newKingPos = BaseCell.createCell(this.position.getRow(), this.position.getCol() + 2);
     newRookPos = BaseCell.createCell(newKingPos.getRow(), newKingPos.getCol() - 1);
     try {
@@ -101,7 +98,7 @@ public abstract class King extends BasePiece{
       this.position = newKingPos;
 
     } catch (IllegalChessMovementException e){
-      throw IllegalChessMovementException("error while mving rook");
+      throw new IllegalChessMovementException("error while mving rook");
     }
   }
 

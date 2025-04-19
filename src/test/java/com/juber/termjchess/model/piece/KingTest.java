@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.exception.IllegalChessMovementException;
 import com.juber.termjchess.model.board.BaseCell;
 import com.juber.termjchess.model.board.BlackCell;
 import com.juber.termjchess.model.board.WhiteCell;
@@ -64,7 +65,7 @@ public class KingTest {
       king.castling(rook);
 
     } catch(IllegalChessMovementException e){
-      fail("error while tryin castling king and rook");
+      fail("error while tryin castling king and rook: " + e.getMessage());
     }
 
     // testa roque com pecas pretas
