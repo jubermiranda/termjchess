@@ -52,6 +52,31 @@ public class BishopTest {
     assertFalse(wb.canMoveTo(bCell));
   }
 
+  @Test
+  void testBishopTrace(){
+    int row = 0, col = 0;
+    Bishop bishop = new BBishop(BaseCell.createCell(row, col));
+
+    // trace eh vazio a apenas uma casa de distancia
+    BaseCell newPos = BaseCell.createCell(row + 1, col + 1);
+    assertEquals(bishop.getTrace().size(, 0));
+
+    // trace contem 1 casa, se o destino eh duas casas de distancia
+    // e assim por diante
+    BaseCell newPos = BaseCell.createCell(row + 2, col + 2);
+    assertEquals(bishop.getTrace().size(, 1));
+    BaseCell newPos = BaseCell.createCell(row + 3, col + 3);
+    assertEquals(bishop.getTrace().size(, 2));
+    BaseCell newPos = BaseCell.createCell(row + 4, col + 4);
+    assertEquals(bishop.getTrace().size(, 3));
+    BaseCell newPos = BaseCell.createCell(row + 5, col + 5);
+    assertEquals(bishop.getTrace().size(, 4));
+    BaseCell newPos = BaseCell.createCell(row + 6, col + 6);
+    assertEquals(bishop.getTrace().size(, 5));
+    BaseCell newPos = BaseCell.createCell(row + 7, col + 7);
+    assertEquals(bishop.getTrace().size(, 6));
+  }
+
   private void validBishopMoves(Bishop bishop) {
     ArrayList<String> validMoves = bishop.getValidMoves();
     assertTrue(validMoves.size() > 0);
