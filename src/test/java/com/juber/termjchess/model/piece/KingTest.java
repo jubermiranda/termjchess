@@ -27,10 +27,10 @@ public class KingTest {
     King king;
 
     king = new WKing(cell);
-    validQueenMoves(king);
+    validKingMoves(king);
 
     king = new BKing(cell);
-    validQueenMoves(king);
+    validKingMoves(king);
   }
 
   @Test
@@ -38,13 +38,13 @@ public class KingTest {
     King king;
 
     king = new WKing(cell);
-    invalidQueenMoves(king);
+    invalidKingMoves(king);
 
     king = new BKing(cell);
-    invalidQueenMoves(king);
+    invalidKingMoves(king);
   }
 
-  private void validQueenMoves(King king){
+  private void validKingMoves(King king){
     ArrayList<String> validMoves = king.getValidMoves();
     assertTrue(validMoves.size() > 0);
 
@@ -53,7 +53,7 @@ public class KingTest {
     }
   }
 
-  private void invalidQueenMoves(King king){
+  private void invalidKingMoves(King king){
     BaseCell invalidMove;
 
     try {
