@@ -60,4 +60,11 @@ public abstract class BaseCell {
     return name.charAt(1) - '0' - 1;
   }
 
+  public static int rowDistance(BaseCell src, BaseCell dst){
+    return (Math.abs(src.row - dst.row));
+  }
+  public static int colDistance(BaseCell src, BaseCell dst){
+    return (Math.abs(src.col - dst.col));
+  }
+
 }

@@ -13,7 +13,12 @@ public abstract class King extends BasePiece{
 
   @Override
   public boolean canMoveTo (BaseCell dst){
-    return false;
+    return (
+        !this.position.isEquals(dst)
+    ) && (
+        BaseCell.rowDistance(this.position, dst) <= 1 && 
+        BaseCell.colDistance(this.position, dst) <= 1 
+    );
   }
 
   @Override
@@ -26,7 +31,29 @@ public abstract class King extends BasePiece{
 
   @Override
   public ArrayList<String> getValidMoves(){
-    return new ArrayList<>();
+    ArrayList<String> result = new ArrayList<>();
+
+    int row = this.position.getRow();
+    int col = this.position.getCol();
+    if(row + 1 < 8){
+      result.add(BaseCell.cellName(row+1, col));
+      if(col + 1 < 8)
+        result.add(BaseCell.cellName(row+1, col+1));
+      if(col - 1 >= 0)
+        result.add(BaseCell.cellName(row+1, col-1));
+    }
+    if(row - 1 >= 0){
+      result.add(BaseCell.cellName(row-1, col));
+      if(col + 1 < 8)
+        result.add(BaseCell.cellName(row-1, col+1));
+      if(col - 1 >= 0)
+        result.add(BaseCell.cellName(row-1, col-1));
+    }
+    if(col + 1 < 8)
+      result.add(BaseCell.cellName(row, col+1));
+    if(col - 1 >= 0)
+      result.add(BaseCell.cellName(row, col-1));
+
+    return result;
   }
 }
-

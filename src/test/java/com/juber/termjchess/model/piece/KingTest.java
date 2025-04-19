@@ -58,9 +58,9 @@ public class KingTest {
     BaseCell invalidMove;
 
     try {
-      invalidMove = new BlackCell(cell.getRow() + 3,cell.getCol());
+      invalidMove = new BlackCell(2, 4);
       assertFalse(king.canMoveTo(invalidMove));
-      invalidMove = new WhiteCell(cell.getRow(),cell.getCol() + 3);
+      invalidMove = new WhiteCell(0, 7);
       assertFalse(king.canMoveTo(invalidMove));
 
     } catch (InvalidBoardCellPosition e){
