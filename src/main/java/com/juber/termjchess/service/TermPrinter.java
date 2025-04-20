@@ -20,10 +20,10 @@ public class TermPrinter {
     return this.boardSize;
   }
 
-  public void initBoard(char[][] out, int startRow, int startCol) {
-    for(int i=0; i < this.boardSize; i++){
-      for(int j=0; j < this.boardSize; j++){
-        out[startRow + i][startCol + j] = ' ';
+  public static void clearFrame(char[][] out, int startRow, int startCol, int endRow, int endCol) {
+    for(int i=startRow; i < endRow; i++){
+      for(int j=startCol; j < endCol; j++){
+        out[i][j] = ' ';
       }
     }
   }
