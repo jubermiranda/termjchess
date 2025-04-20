@@ -55,26 +55,23 @@ public class BishopTest {
   @Test
   void testBishopTrace(){
     int row = 0, col = 0;
-    Bishop bishop = new BBishop(BaseCell.createCell(row, col));
+    BaseCell initialPos = BaseCell.createCell(row, col);
+    Bishop bishop = new BBishop(initialPos);
 
     // trace eh vazio a apenas uma casa de distancia
     BaseCell newPos = BaseCell.createCell(row + 1, col + 1);
-    assertEquals(bishop.getTrace().size(, 0));
+    assertEquals(0, bishop.getTrace(newPos).size());
 
     // trace contem 1 casa, se o destino eh duas casas de distancia
     // e assim por diante
-    BaseCell newPos = BaseCell.createCell(row + 2, col + 2);
-    assertEquals(bishop.getTrace().size(, 1));
-    BaseCell newPos = BaseCell.createCell(row + 3, col + 3);
-    assertEquals(bishop.getTrace().size(, 2));
-    BaseCell newPos = BaseCell.createCell(row + 4, col + 4);
-    assertEquals(bishop.getTrace().size(, 3));
-    BaseCell newPos = BaseCell.createCell(row + 5, col + 5);
-    assertEquals(bishop.getTrace().size(, 4));
-    BaseCell newPos = BaseCell.createCell(row + 6, col + 6);
-    assertEquals(bishop.getTrace().size(, 5));
-    BaseCell newPos = BaseCell.createCell(row + 7, col + 7);
-    assertEquals(bishop.getTrace().size(, 6));
+    newPos = BaseCell.createCell(row + 2, col + 2);
+    assertEquals(1, bishop.getTrace(newPos).size());
+    newPos = BaseCell.createCell(row + 3, col + 3);
+    assertEquals(2, bishop.getTrace(newPos).size());
+    newPos = BaseCell.createCell(row + 4, col + 4);
+    assertEquals(3, bishop.getTrace(newPos).size());
+    newPos = BaseCell.createCell(row + 7, col + 7);
+    assertEquals(6, bishop.getTrace(newPos).size());
   }
 
   private void validBishopMoves(Bishop bishop) {

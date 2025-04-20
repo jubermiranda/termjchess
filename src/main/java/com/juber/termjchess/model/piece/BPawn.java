@@ -2,6 +2,8 @@ package com.juber.termjchess.model.piece;
 
 import com.juber.termjchess.model.board.BaseCell;
 
+import java.util.ArrayList;
+
 public class BPawn extends Pawn{
   public BPawn(BaseCell pos) {
     super(pos);
@@ -45,7 +47,7 @@ public class BPawn extends Pawn{
             this.position.getRow()+1, 
             this.position.getCol()
         ); 
-        result.add(cell.cellName);
+        result.add(cell.cellName());
       }
     }
 

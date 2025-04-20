@@ -72,7 +72,7 @@ public abstract class BaseCell {
   public static String relativePos(BaseCell a, BaseCell b){
     if(a.isEquals(b))
       return "";
-    if( !a.isSameCol(b) || !a.isSameRow(b) || !a.isSameDiagonal(b))
+    if( !a.isSameCol(b) && !a.isSameRow(b) && !a.isSameDiagonal(b))
       return "";
 
     String result;

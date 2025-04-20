@@ -68,6 +68,8 @@ public abstract class Bishop extends BasePiece {
     ArrayList<String> result = new ArrayList<String>();
     if(this.position.isEquals(dst))
       return result;
+    if(!this.canMoveTo(dst))
+      return result;
     String position = BaseCell.relativePos(this.position, dst);
     if(position == "")
       return result;
@@ -77,26 +79,20 @@ public abstract class Bishop extends BasePiece {
     int col = this.position.getCol();
     int i = 1;
     do{
-      int newRow = row;
-      int newCol = col;
-      if(position == "TOP_RIGHT"){
-        newRow += i;
-        newCol += i;
-      } else if(position == "TOP_LEFT"){
-        newRow += i;
-        newCol -= i;
-      } else if(position == "BOT_RIGHT"){
-        newCol -= i;
-        newCol += i;
-      } else {
-        newCol -= i;
-        newCol -= i;
-      }
+      if(position.contains("TOP"))
+        row += i;
+      else
+        row -= i;
 
-      cell = BaseCell.createCell(newRow, newCol);
+      if(position.contains("RIGHT"))
+        col += i;
+      else 
+        col -= i;
+
+      cell = BaseCell.createCell(row, col);
       if(!cell.isEquals(dst))
         result.add(cell.cellName());
-    } while (!cell.isEquals(dst) && i <= 8);
+    } while(!cell.isEquals(dst));
 
     return result;
   }
