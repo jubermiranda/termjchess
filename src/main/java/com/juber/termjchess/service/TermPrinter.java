@@ -13,12 +13,24 @@ public class TermPrinter {
   public TermPrinter(int cellSize, int cellSpacing) {
     this.cellSize = cellSize;
     this.cellSpacing = cellSpacing;
-    this.calcBoardSize();
+    this.boardSize = this.calcBoardSize();
+  }
+
+  public int getBoardSize(){
+    return this.boardSize;
+  }
+
+  public void initBoard(char[][] out, int startRow, int startCol) {
+    for(int i=0; i < this.boardSize; i++){
+      for(int j=0; j < this.boardSize; j++){
+        out[startRow + i][startCol + j] = ' ';
+      }
+    }
   }
 
   public void printBoard(char[][] out, int startRow, int startCol) {
     try {
-      this.checkMinimunSize(out);
+      this.checkMinimunSize(out,startRow, startCol);
     } catch (IllegalArgumentException e) {
       // Drawn nothing
       return;
@@ -28,18 +40,18 @@ public class TermPrinter {
 
     this.drawnSprite0(startRow, startCol, out);
     this.drawnSprite1(startRow, startCol, out);
-    this.drawnSprite2(startRow, startCol, out);
+    //this.drawnSprite2(startRow, startCol, out);
   }
 
   private void drawnSprite0(int row, int col, char[][]out){
-    int endRow = row + cellSize + 2;
-    int endCol = col + cellSize + 2;
+    int endRow = row + this.cellSize + 1;
+    int endCol = col + this.cellSize + 1;
     out[row][col] = BoxChar.TL_CORNER;
-    out[row][endCol] = BoxChar.TR_CORNER;
-    out[endRow][col] = BoxChar.BL_CORNER;
-    out[endRow][endCol] = BoxChar.BR_CORNER;
+    out[row][endCol] = BoxChar.T_TEE;
+    out[endRow][col] = BoxChar.L_TEE;
+    out[endRow][endCol] = BoxChar.CROSS;
 
-    for(int i=1; i < endRow-1; i++){
+    for(int i=1; i < endRow; i++){
       out[row][col+i] = BoxChar.H_LINE;
       out[endRow][col+i] = BoxChar.H_LINE;
 
@@ -53,7 +65,7 @@ public class TermPrinter {
     int startCol = col + cellSize + 2;
 
     for(int i = 0; i < 7; i++){
-      int endRow = startRow + cellSize;
+      int endRow = startRow + cellSize + 1;
       int endCol = startCol + cellSize;
 
       if(i < 6){
@@ -64,9 +76,9 @@ public class TermPrinter {
         out[endRow][endCol] = BoxChar.R_TEE;
       }
       for(int j = 0; j < cellSize; j++){
-        out[startRow][startCol+ i] = BoxChar.H_LINE;
-        out[endRow][startCol+ i] = BoxChar.H_LINE;
-        out[startRow + i][endCol] = BoxChar.H_LINE;
+        out[startRow][startCol+ j] = BoxChar.H_LINE;
+        out[endRow][startCol+ j] = BoxChar.H_LINE;
+        out[startRow + j + 1][endCol] = BoxChar.V_LINE;
       }
       startCol = startCol + cellSize + 1;
     }
@@ -88,10 +100,27 @@ public class TermPrinter {
         out[endRow][endCol] = BoxChar.B_TEE;
       }
       for(int j = 0; j < cellSize; j++){
-        out[startRow + i][startCol] = BoxChar.V_LINE;
-        out[startRow + i][endCol] = BoxChar.V_LINE;
-        out[endRow][startCol +i +1] = BoxChar.H_LINE;
+        out[startRow + j][startCol] = BoxChar.V_LINE;
+        out[startRow + j][endCol] = BoxChar.V_LINE;
+        out[endRow][startCol +j +1] = BoxChar.H_LINE;
       }
     }
+    startRow = startRow + cellSize + 1;
+  }
+
+  private void checkMinimunSize(char[][]out, int row, int col) throws IllegalArgumentException{
+    if(out == null)
+      throw new IllegalArgumentException("null output");
+    if(out.length < this.boardSize + row)
+      throw new IllegalArgumentException("out lines less than expected");
+    for(int i=0; i < this.boardSize; i++){
+      if(out[row + i].length < this.boardSize + col)
+        throw new IllegalArgumentException("out columns less than expected");
+    }
+  }
+
+  private int calcBoardSize(){
+    int total = 8*(this.cellSize + 2*this.cellSpacing + 1) + 1;
+    return total;
   }
 }
