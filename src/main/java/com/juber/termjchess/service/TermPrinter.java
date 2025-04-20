@@ -40,7 +40,7 @@ public class TermPrinter {
 
     this.drawnSprite0(startRow, startCol, out);
     this.drawnSprite1(startRow, startCol, out);
-    //this.drawnSprite2(startRow, startCol, out);
+    this.drawnSprite2(startRow, startCol, out);
   }
 
   private void drawnSprite0(int row, int col, char[][]out){
@@ -90,7 +90,7 @@ public class TermPrinter {
 
     for(int i = 0; i < 7; i++){
       int endRow = startRow + cellSize;
-      int endCol = startCol + cellSize;
+      int endCol = startCol + cellSize + 1;
 
       if(i < 6){
         out[endRow][startCol] = BoxChar.L_TEE;
@@ -104,8 +104,8 @@ public class TermPrinter {
         out[startRow + j][endCol] = BoxChar.V_LINE;
         out[endRow][startCol +j +1] = BoxChar.H_LINE;
       }
+      startRow = startRow + cellSize + 1;
     }
-    startRow = startRow + cellSize + 1;
   }
 
   private void checkMinimunSize(char[][]out, int row, int col) throws IllegalArgumentException{
