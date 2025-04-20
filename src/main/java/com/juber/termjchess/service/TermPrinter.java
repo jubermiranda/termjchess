@@ -10,10 +10,15 @@ public class TermPrinter {
   private int cellSize;
   private int cellSpacing;
 
-  public TermPrinter(int cellSize, int cellSpacing) {
+  private int bStartRow;
+  private int bStartCol;
+
+  public TermPrinter(int cellSize, int cellSpacing, int boardStartR, int boardStartC) {
     this.cellSize = cellSize;
     this.cellSpacing = cellSpacing;
     this.boardSize = this.calcBoardSize();
+    this.bStartRow = boardStartR;
+    this.bStartCol = boardStartC;
   }
 
   public int getBoardSize(){
@@ -28,21 +33,48 @@ public class TermPrinter {
     }
   }
 
-  public void printBoard(char[][] out, int startRow, int startCol) {
+  public void printBoard(char[][] out) {
     try {
-      this.checkMinimunSize(out,startRow, startCol);
+      this.checkMinimunSize(out);
     } catch (IllegalArgumentException e) {
       // Drawn nothing
       return;
     }
-    int endRow = startRow + boardSize - 1;
-    int endCol = startCol + boardSize - 1;
+    int endRow = this.bStartRow + boardSize - 1;
+    int endCol = this.bStartCol + boardSize - 1;
 
-    this.drawnSprite0(startRow, startCol, out);
-    this.drawnSprite1(startRow, startCol, out);
-    this.drawnSprite2(startRow, startCol, out);
-    this.drawnSprite3(startRow, startCol, out);
+    this.drawnSprite0(this.bStartRow, this.bStartCol, out);
+    this.drawnSprite1(this.bStartRow, this.bStartCol, out);
+    this.drawnSprite2(this.bStartRow, this.bStartCol, out);
+    this.drawnSprite3(this.bStartRow, this.bStartCol, out);
   }
+
+  public void drawSprite(char[][]sprite, int cellRow, int cellCol, char[][]out) throws IllegalArgumentException{
+    if(cellRow < 0 || cellRow > 7)
+      throw new IllegalArgumentException("invalid cell row");
+    if(cellCol < 0 || cellCol > 7)
+      throw new IllegalArgumentException("invalid cell col");
+    if(!this.checkSprite(sprite))
+      throw new IllegalArgumentException("sprite greather than cell size");
+
+    int startRow = (cellRow * (this.cellSize + 1) + 1) + this.bStartRow;
+    int startCol = (cellCol * (this.cellSize + 1) + 1) + this.bStartCol;
+
+    int row = startRow;
+    for(int i = 0; i < sprite.length; i++){
+      int col = startCol;
+      for(int j=0; j < sprite[i].length; j++){
+        out[row][col++] = sprite[i][j];
+      }
+      row++;
+    }
+  }
+
+  //
+  //
+  //
+  //
+  // private ----------------------------------------
 
   private void drawnSprite0(int row, int col, char[][]out){
     int endRow = row + this.cellSize + 1;
@@ -142,9 +174,11 @@ public class TermPrinter {
     }
   }
 
-  private void checkMinimunSize(char[][]out, int row, int col) throws IllegalArgumentException{
+  private void checkMinimunSize(char[][]out) throws IllegalArgumentException{
     if(out == null)
       throw new IllegalArgumentException("null output");
+    int row = this.bStartRow;
+    int col = this.bStartCol;
     if(out.length < this.boardSize + row)
       throw new IllegalArgumentException("out lines less than expected");
     for(int i=0; i < this.boardSize; i++){
@@ -156,5 +190,15 @@ public class TermPrinter {
   private int calcBoardSize(){
     int total = 8*(this.cellSize + 2*this.cellSpacing + 1) + 1;
     return total;
+  }
+
+  private boolean checkSprite(char[][]sprite){
+    if(sprite.length > this.cellSize)
+      return false;
+    for(int i=0; i < sprite.length; i++){
+      if(sprite[i].length > this.cellSize)
+        return false;
+    }
+    return true;
   }
 }
