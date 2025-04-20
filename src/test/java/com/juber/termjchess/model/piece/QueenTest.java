@@ -62,6 +62,31 @@ public class QueenTest {
     }
   }
 
+  @Test
+  void testQueenTrace(){
+    int row = 0, col = 0;
+    BaseCell initialPos = BaseCell.createCell(row, col);
+    Queen queen = new WQueen(initialPos);
+
+    BaseCell newPos = BaseCell.createCell(row + 1, col);
+    assertEquals(0, queen.getTrace(newPos).size());
+
+    // left
+    newPos = BaseCell.createCell(row, col + 2);
+    assertEquals(1, queen.getTrace(newPos).size());
+    // top-right diagonal
+    newPos = BaseCell.createCell(row + 4, col + 4);
+    assertEquals(3, queen.getTrace(newPos).size());
+
+    queen = new WQueen(BaseCell.createCell(7,7));
+    // right
+    newPos = BaseCell.createCell(7, 7 - 4);
+    assertEquals(3, queen.getTrace(newPos).size());
+    // bot-left diagonal
+    newPos = BaseCell.createCell(0, 0);
+    assertEquals(6, queen.getTrace(newPos).size());
+  }
+
   private void validQueenMoves(Queen queen){
     ArrayList<String> validMoves = queen.getValidMoves();
     assertTrue(validMoves.size() > 0);
