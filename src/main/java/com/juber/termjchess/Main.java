@@ -1,6 +1,7 @@
 package com.juber.termjchess;
 
-import com.juber.termjchess.service.TermPrinter;
+import com.juber.termjchess.util.TermPrinter;
+import com.juber.termjchess.service.ChessSpriteXProvider;
 
 public class Main {
   public static void printtt(char[][] board) {
@@ -13,26 +14,20 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    TermPrinter printer = new TermPrinter(5, 1, 3, 3);
-    int n = printer.getBoardSize() + 4;
+    TermPrinter printer = new TermPrinter(12, 0, 0, 0);
+    int n = printer.getBoardSize();
     char[][] board = new char[n][n];
+    char[][] sprite = ChessSpriteXProvider.WPawnSprite();
+
     for(int i=0; i < n; i++)
       for(int j=0; j < n; j++)
         board[i][j] = ' ';
 
     printer.printBoard(board);
-    System.out.println("Board::::::");
-    System.out.println("size = " + Integer.toString(n) );
-    printtt(board);
-    
-    char[][] sprite = {
-      {' ', 'X', ' '},
-      {' ', ' ', 'X'},
-      {'X', 'X', 'X'}
-    };
-
-    System.out.println("Board:::::: (with sprite):::::");
     printer.drawSprite(sprite, 0, 0, board);
+    
+    System.out.println("size = " + Integer.toString(n) );
+    System.out.println("Board:::::: (with sprite):::::");
     printtt(board);
   }
 }

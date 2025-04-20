@@ -1,4 +1,4 @@
-package com.juber.termjchess.service;
+package com.juber.termjchess.util;
 
 import com.juber.termjchess.model.BoxChar;
 
@@ -80,7 +80,7 @@ public class TermPrinter {
     int endRow = row + this.cellSize + 1;
     int endCol = col + this.cellSize + 1;
 
-    for(int i=1; i < endRow-1; i++){
+    for(int i=1; i < endRow; i++){
       out[row][col+i] = BoxChar.H_LINE;
       out[endRow][col+i] = BoxChar.H_LINE;
 
