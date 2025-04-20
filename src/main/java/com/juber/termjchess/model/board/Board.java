@@ -98,6 +98,10 @@ public class Board {
       return "w_king";
   }
 
+  public Map<String, BasePiece> getPiecesConfig(){
+    return this.piecesOnBoard;
+  }
+
   private void createPawns(){
     for(int i=0; i < 8; i++){
       assert(this.boardCells.size() == 64);

@@ -21,20 +21,32 @@ public class ChessSpriteXProvider {
   private static final String wqueen_file = "queen_w";
   private static final String bqueen_file = "queen_b";
 
+  public static final char[][] WPawnSprite = loadSprite(wpawn_file);
+  public static final char[][] BPawnSprite = loadSprite(bpawn_file);
+
+  public static final char[][] WBishopSprite = loadSprite(wbishop_file);
+  public static final char[][] BBishopSprite = loadSprite(bbishop_file);
+
+  public static final char[][] WKingSprite = loadSprite(wking_file);
+  public static final char[][] BKingSprite = loadSprite(bking_file);
+
+  public static final char[][] WKnightSprite = loadSprite(wknight_file);
+  public static final char[][] BKnightSprite = loadSprite(bknight_file);
+
+  public static final char[][] WRookSprite = loadSprite(wrook_file);
+  public static final char[][] BRookSprite = loadSprite(brook_file);
+
+  public static final char[][] WQueenSprite = loadSprite(wqueen_file);
+  public static final char[][] BQueenSprite = loadSprite(bqueen_file);
+
+
   private ChessSpriteXProvider() {
   };
 
-  public static final char[][] WPawnSprite() {
-    ArrayList<String> lines = readFile(wpawn_file);
-    if (lines.size() == 0) {
-
-      char[][] result = new char[2][2];
-      result[0][0] = 'X';
-      result[0][1] = 'X';
-      result[1][0] = 'X';
-      result[1][1] = 'X';
-      return result;
-    }
+  private static char[][] loadSprite(String name){
+    ArrayList<String> lines = readFile(name);
+    if (lines.size() == 0)
+      return new char[0][0];
 
     int rows = lines.size();
     int cols = lines.get(0).length();
@@ -45,14 +57,11 @@ public class ChessSpriteXProvider {
     }
 
     char[][] resutl = new char[rows][cols];
-
     try {
       copyContents(resutl, lines);
-
     } catch (IllegalArgumentException e) {
       return new char[0][0];
     }
-
     return resutl;
   }
 

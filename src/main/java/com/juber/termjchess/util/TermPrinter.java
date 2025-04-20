@@ -14,7 +14,7 @@ public class TermPrinter {
   private int bStartCol;
 
   public TermPrinter(int cellSize, int cellSpacing, int boardStartR, int boardStartC) {
-    this.cellSize = cellSize;
+    this.cellSize = cellSize + 2*cellSpacing;
     this.cellSpacing = cellSpacing;
     this.boardSize = this.calcBoardSize();
     this.bStartRow = boardStartR;

@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public interface GraphicsProvider<FrameType> {
-  public void startEngine(Map<String, BasePiece> pieces);
+  public void startEngine(Map<String, BasePiece> pieces) throws Exception;
 
-  public FrameType drawnNewFrame();
+  public void drawnNewFrame() throws Exception;
 
   public void showWarning(GameWarning w);
 
