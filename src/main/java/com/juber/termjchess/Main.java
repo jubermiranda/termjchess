@@ -13,7 +13,7 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    TermPrinter printer = new TermPrinter(4, 0, 3, 3);
+    TermPrinter printer = new TermPrinter(5, 1, 3, 3);
     int n = printer.getBoardSize() + 4;
     char[][] board = new char[n][n];
     for(int i=0; i < n; i++)

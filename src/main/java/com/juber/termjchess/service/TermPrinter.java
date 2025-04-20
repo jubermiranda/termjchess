@@ -57,8 +57,8 @@ public class TermPrinter {
     if(!this.checkSprite(sprite))
       throw new IllegalArgumentException("sprite greather than cell size");
 
-    int startRow = (cellRow * (this.cellSize + 1) + 1) + this.bStartRow;
-    int startCol = (cellCol * (this.cellSize + 1) + 1) + this.bStartCol;
+    int startRow = (cellRow * (this.cellSize + 1) + 1) + this.bStartRow + this.cellSpacing;
+    int startCol = (cellCol * (this.cellSize + 1) + 1) + this.bStartCol + this.cellSpacing;
 
     int row = startRow;
     for(int i = 0; i < sprite.length; i++){
@@ -79,18 +79,18 @@ public class TermPrinter {
   private void drawnSprite0(int row, int col, char[][]out){
     int endRow = row + this.cellSize + 1;
     int endCol = col + this.cellSize + 1;
-    out[row][col] = BoxChar.TL_CORNER;
-    out[row][endCol] = BoxChar.T_TEE;
-    out[endRow][col] = BoxChar.L_TEE;
-    out[endRow][endCol] = BoxChar.CROSS;
 
-    for(int i=1; i < endRow; i++){
+    for(int i=1; i < endRow-1; i++){
       out[row][col+i] = BoxChar.H_LINE;
       out[endRow][col+i] = BoxChar.H_LINE;
 
       out[row + i][col] = BoxChar.V_LINE;
       out[row + i][endCol] = BoxChar.V_LINE;
     }
+    out[row][col] = BoxChar.TL_CORNER;
+    out[row][endCol] = BoxChar.T_TEE;
+    out[endRow][col] = BoxChar.L_TEE;
+    out[endRow][endCol] = BoxChar.CROSS;
   }
 
   private void drawnSprite1(int row, int col, char[][]out){
@@ -193,10 +193,10 @@ public class TermPrinter {
   }
 
   private boolean checkSprite(char[][]sprite){
-    if(sprite.length > this.cellSize)
+    if(sprite.length+(this.cellSpacing*2) > this.cellSize)
       return false;
     for(int i=0; i < sprite.length; i++){
-      if(sprite[i].length > this.cellSize)
+      if(sprite[i].length + (this.cellSpacing*2) > this.cellSize)
         return false;
     }
     return true;
