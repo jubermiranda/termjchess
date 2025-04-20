@@ -56,6 +56,21 @@ public class RookTest {
     }
   }
 
+  @Test
+  void testRookTrace(){
+    int row = 0, col = 0;
+    BaseCell initialPos = BaseCell.createCell(row, col);
+    Rook rook = new BRook(initialPos);
+
+    BaseCell newPos = BaseCell.createCell(row + 1, col);
+    assertEquals(0, rook.getTrace(newPos).size());
+
+    newPos = BaseCell.createCell(row, col + 3);
+    assertEquals(2, rook.getTrace(newPos).size());
+    newPos = BaseCell.createCell(row + 7, col);
+    assertEquals(6, rook.getTrace(newPos).size());
+  }
+
   private void invalidRookMoves(Rook rook) {
     BaseCell invalidMove;
 

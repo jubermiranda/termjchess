@@ -75,15 +75,16 @@ public abstract class BaseCell {
     if( !a.isSameCol(b) && !a.isSameRow(b) && !a.isSameDiagonal(b))
       return "";
 
-    String result;
+    String result = "";
 
     if(b.getRow() - a.getRow() > 0)
       result = "TOP";
-    else 
+    else if(b.getRow() - a.getRow() < 0)
       result = "BOT";
+
     if(b.getCol() - a.getCol() > 0)
       result += (result == "")?"RIGHT":"_RIGHT";
-    else 
+    else if(b.getCol() - a.getCol() < 0)
       result += (result == "")?"LEFT":"_LEFT";
 
     return result;

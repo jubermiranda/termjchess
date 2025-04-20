@@ -70,30 +70,31 @@ public abstract class Rook extends BasePiece {
     ArrayList<String> result = new ArrayList<String>();
     if(this.position.isEquals(dst))
       return result;
-    String position = BaseCell.relativePos(this.position, dst);
-    if(position == "")
+    if(!this.canMoveTo(dst))
       return result;
+    String position = BaseCell.relativePos(this.position, dst);
 
     BaseCell cell;
     int row = this.position.getRow();
     int col = this.position.getCol();
-    int i = 1;
+    int aux = 0;
     do{
-      int newRow = row;
-      int newCol = col;
-      if(position == "TOP")
-        newRow += i;
-      else if(position == "BOT")
-        newRow -= i;
-      else if(position == "LEFT")
-        newCol -= i;
-      else if(position == "RIGHT")
-        newCol += i;
+      if(position.equals("TOP"))
+        row = row + 1;
+      else if(position.equals("BOT"))
+        row = row - 1;
+      else if(position.equals("RIGHT"))
+        col = col + 1;
+      else if(position.equals("LEFT"))
+        col = col - 1;
+      else 
+        break;
 
-      cell = BaseCell.createCell(newRow, newCol);
+      cell = BaseCell.createCell(row, col);
       if(!cell.isEquals(dst))
         result.add(cell.cellName());
-    } while (!cell.isEquals(dst) && i <= 8);
+      aux++;
+    } while(!cell.isEquals(dst) && aux < 8);
 
     return result;
   }

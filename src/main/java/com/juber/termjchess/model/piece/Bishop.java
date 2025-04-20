@@ -71,23 +71,20 @@ public abstract class Bishop extends BasePiece {
     if(!this.canMoveTo(dst))
       return result;
     String position = BaseCell.relativePos(this.position, dst);
-    if(position == "")
-      return result;
 
     BaseCell cell;
     int row = this.position.getRow();
     int col = this.position.getCol();
-    int i = 1;
     do{
       if(position.contains("TOP"))
-        row += i;
+        row += 1;
       else
-        row -= i;
+        row -= 1;
 
       if(position.contains("RIGHT"))
-        col += i;
+        col += 1;
       else 
-        col -= i;
+        col -= 1;
 
       cell = BaseCell.createCell(row, col);
       if(!cell.isEquals(dst))
