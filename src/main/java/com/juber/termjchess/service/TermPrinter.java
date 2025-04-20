@@ -41,6 +41,7 @@ public class TermPrinter {
     this.drawnSprite0(startRow, startCol, out);
     this.drawnSprite1(startRow, startCol, out);
     this.drawnSprite2(startRow, startCol, out);
+    this.drawnSprite3(startRow, startCol, out);
   }
 
   private void drawnSprite0(int row, int col, char[][]out){
@@ -104,6 +105,39 @@ public class TermPrinter {
         out[startRow + j][endCol] = BoxChar.V_LINE;
         out[endRow][startCol +j +1] = BoxChar.H_LINE;
       }
+      startRow = startRow + cellSize + 1;
+    }
+  }
+
+  private void drawnSprite3(int row, int col, char[][]out){
+    int startRow = row + cellSize + 2;
+    int startCol = col + cellSize + 2;
+    for(int i=0; i < 7; i++){
+      for(int j=0; j < 7; j++){
+        int endRow = startRow + cellSize;
+        int endCol = startCol + cellSize;
+        if(j < 6){
+
+          if(i < 6)
+            out[endRow][endCol] = BoxChar.CROSS;
+          else
+            out[endRow][endCol] = BoxChar.B_TEE;
+
+        }else{
+
+          if(i < 6)
+            out[endRow][endCol] = BoxChar.R_TEE;
+          else
+            out[endRow][endCol] = BoxChar.BR_CORNER;
+
+        }
+        for(int k = 0; k < cellSize; k++){
+          out[endRow][startCol+k] = BoxChar.H_LINE;
+          out[startRow + k][endCol] = BoxChar.V_LINE;
+        }
+        startCol = startCol + cellSize + 1;
+      }
+      startCol = col + cellSize + 2;
       startRow = startRow + cellSize + 1;
     }
   }
