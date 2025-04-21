@@ -21,6 +21,8 @@ public class ChessSpriteXProvider {
   private static final String wqueen_file = "queen_w";
   private static final String bqueen_file = "queen_b";
 
+  private static final String logo_file = "logo";
+
   public static final char[][] WPawnSprite = loadSprite(wpawn_file);
   public static final char[][] BPawnSprite = loadSprite(bpawn_file);
 
@@ -38,6 +40,8 @@ public class ChessSpriteXProvider {
 
   public static final char[][] WQueenSprite = loadSprite(wqueen_file);
   public static final char[][] BQueenSprite = loadSprite(bqueen_file);
+
+  public static final char[][] LogoSprite = loadSprite(logo_file);
 
 
   private ChessSpriteXProvider() {

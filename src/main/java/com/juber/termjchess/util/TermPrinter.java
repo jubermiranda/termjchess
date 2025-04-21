@@ -3,6 +3,7 @@ package com.juber.termjchess.util;
 import com.juber.termjchess.model.BoxChar;
 
 import java.lang.IllegalArgumentException;
+import java.util.Random;
 
 public class TermPrinter {
 
@@ -25,7 +26,13 @@ public class TermPrinter {
     return this.boardSize;
   }
 
-  public static void clearFrame(char[][] out, int startRow, int startCol, int endRow, int endCol) {
+  public static void clearFrame(
+      char[][] out,
+      int startRow,
+      int startCol,
+      int endRow,
+      int endCol
+  ) {
     for(int i=startRow; i < endRow; i++){
       for(int j=startCol; j < endCol; j++){
         out[i][j] = ' ';
@@ -49,12 +56,12 @@ public class TermPrinter {
     this.drawnSprite3(this.bStartRow, this.bStartCol, out);
   }
 
-  public void drawSprite(char[][]sprite, int cellRow, int cellCol, char[][]out) throws IllegalArgumentException{
+  public void drawPiece(char[][]sprite, int cellRow, int cellCol, char[][]out) throws IllegalArgumentException{
     if(cellRow < 0 || cellRow > 7)
       throw new IllegalArgumentException("invalid cell row");
     if(cellCol < 0 || cellCol > 7)
       throw new IllegalArgumentException("invalid cell col");
-    if(!this.checkSprite(sprite))
+    if(!this.checkPieceSprite(sprite))
       throw new IllegalArgumentException("sprite greather than cell size");
 
     int startRow = (cellRow * (this.cellSize + 1) + 1) + this.bStartRow + this.cellSpacing;
@@ -67,6 +74,126 @@ public class TermPrinter {
         out[row][col++] = sprite[i][j];
       }
       row++;
+    }
+  }
+
+  public static void drawSprite(char[][]sprite, int startRow, int startCol, char[][]out){
+    if(sprite.length + startRow > out.length)
+      return;
+
+    for(int i=0; i < sprite.length; i++){
+      for(int j=0; j < sprite[i].length; j++){
+        out[startRow + i][startCol + j] = sprite[i][j];
+      }
+    }
+  }
+
+  public static void drawBox(char[][]out, int sRow, int sCol, int eRow, int eCol){
+    out[sRow][sCol] = BoxChar.TL_CORNER;
+    out[sRow][eCol] = BoxChar.TR_CORNER;
+    out[eRow][sCol] = BoxChar.BL_CORNER;
+    out[eRow][eCol] = BoxChar.BR_CORNER;
+    for(int j=sCol + 1; j < eCol; j++){
+      out[sRow][sCol+j] = BoxChar.H_LINE;
+      out[eRow][sCol+j] = BoxChar.H_LINE;
+    }
+    for(int j=sRow + 1; j < eRow; j++){
+      out[sRow+j][sCol] = BoxChar.V_LINE;
+      out[sRow+j][eCol] = BoxChar.V_LINE;
+    }
+  }
+
+  public static void printBuffer(char[][] buffer){
+    for(int i=0; i < buffer.length; i++){
+      for(int j=0; j < buffer[i].length; j++){
+        System.out.print(buffer[i][j]);
+      }
+      System.out.println();
+    }
+  }
+
+  public static void moveCursor(int row, int col) {
+    System.out.print("\033[" + row + ";" + col + "H");
+  }
+
+  public static void clearScreen(){
+    System.out.print("\033[2J");
+    System.out.flush();
+  }
+
+  public static void clearLine(){
+    System.out.print("\033[2K");
+  }
+
+
+  public static void printProgressBar(){
+    int totalWidth = 100;
+    clearLine();
+
+    String h_line = String.valueOf(BoxChar.H_LINE);
+    String block = String.valueOf(BoxChar.BLOCK);
+
+    System.out.printf("%s%s%s%s%s%n", 
+        BoxChar.PURPLE, 
+        BoxChar.TL_CORNER,
+        h_line.repeat(totalWidth + 2),
+        BoxChar.TR_CORNER,
+        BoxChar.RESET
+    );
+
+    Random random = new Random();
+
+    for (int progress = 0; progress <= 100; progress++) {
+      int filled = progress;
+      int empty = totalWidth - progress;
+
+      String color;
+      if (progress < 33) {
+          color = BoxChar.BLUE;
+      } else if (progress < 66) {
+          color = BoxChar.RED;
+      } else {
+          color = BoxChar.PURPLE;
+      }
+
+      clearLine();
+
+      System.out.printf("%s│%s%s%s%s │ %.2f%%%s%n",
+            BoxChar.PURPLE,
+            color, block.repeat(filled),
+            " ".repeat(empty),
+            BoxChar.PURPLE,
+            (float) progress,
+            BoxChar.RESET
+      );
+
+      if (progress == 100) {
+        System.out.printf("%s%s%s%s%s%n", 
+            BoxChar.PURPLE,
+            BoxChar.BL_CORNER,
+            h_line.repeat(totalWidth + 2),
+            BoxChar.BR_CORNER,
+            BoxChar.RESET
+        );
+      } else {
+        clearLine();
+        System.out.printf("\033[2A%s%s%s%s%s%n", 
+            BoxChar.PURPLE,
+            BoxChar.TL_CORNER,
+            h_line.repeat(totalWidth + 2),
+            BoxChar.TR_CORNER,
+            BoxChar.RESET
+        );
+      }
+      int minSleep = 2 + (int)(0.4 * progress);
+      int sleepTime = random.nextInt(minSleep + 1) + minSleep;
+      try {
+          Thread.sleep(sleepTime);
+      } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+          System.err.println("Progress interrupted: " + e.getMessage());
+          break;
+      }
     }
   }
 
@@ -192,7 +319,7 @@ public class TermPrinter {
     return total;
   }
 
-  private boolean checkSprite(char[][]sprite){
+  private boolean checkPieceSprite(char[][]sprite){
     if(sprite.length+(this.cellSpacing*2) > this.cellSize)
       return false;
     for(int i=0; i < sprite.length; i++){
@@ -201,4 +328,5 @@ public class TermPrinter {
     }
     return true;
   }
+
 }
