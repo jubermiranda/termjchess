@@ -17,6 +17,8 @@ public abstract class BasePiece {
 
   public abstract boolean isB();
 
+  public abstract String getName();
+
   public abstract ArrayList<String> getValidMoves();
 
   public abstract ArrayList<String> getTrace(BaseCell dst);

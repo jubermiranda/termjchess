@@ -16,5 +16,10 @@ public class WQueen extends Queen{
   public boolean isB(){
     return false;
   }
+
+  @Override
+  public String getName(){
+    return "White Queen";
+  }
 }
 

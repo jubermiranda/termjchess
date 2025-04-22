@@ -43,6 +43,18 @@ public class ChessSpriteXProvider {
 
   public static final char[][] LogoSprite = loadSprite(logo_file);
 
+  public static char[][] EmptySprite(int rows, int cols){
+    if(rows <=0 || rows <= 0)
+      return new char[0][0];
+
+    char[][] result = new char[rows][cols];
+    for(int i=0; i < rows; i++)
+      for(int j=0; j < rows; j++)
+        result[i][j] = ' ';
+
+    return result;
+  }
+
 
   private ChessSpriteXProvider() {
   };

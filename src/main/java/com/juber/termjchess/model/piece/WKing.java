@@ -17,5 +17,9 @@ public class WKing extends King{
     return false;
   }
 
+  @Override
+  public String getName(){
+    return "White King";
+  }
 }
 

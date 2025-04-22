@@ -16,4 +16,8 @@ public class BRook extends Rook{
   public boolean isB(){
     return true;
   }
+  @Override
+  public String getName(){
+    return "Black Rook";
+  }
 }

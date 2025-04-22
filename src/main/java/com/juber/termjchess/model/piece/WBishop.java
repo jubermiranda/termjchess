@@ -17,4 +17,9 @@ public class WBishop extends Bishop {
     return false;
   }
 
+  @Override
+  public String getName(){
+    return "White Bishop";
+  }
+
 }

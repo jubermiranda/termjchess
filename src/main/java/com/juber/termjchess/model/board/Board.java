@@ -37,7 +37,7 @@ public class Board {
   public void move(String src, String dst) throws IllegalArgumentException, IllegalChessMovementException{
     if(!(BaseCell.isValidPosition(src)) || !(BaseCell.isValidPosition(dst)))
       throw new IllegalArgumentException("invalid position");
-    if(!this.piecesOnBoard.containsValue(src))
+    if(!this.piecesOnBoard.containsKey(src))
       throw new IllegalChessMovementException("no piece on src");
 
     BasePiece piece = this.piecesOnBoard.get(src);
@@ -51,7 +51,7 @@ public class Board {
       // check cells btw src - dst
       ArrayList<String> trace = piece.getTrace(BaseCell.createCell(dst));
       for(String cell: trace){
-        if(this.piecesOnBoard.containsValue(cell))
+        if(this.piecesOnBoard.containsKey(cell))
           throw new IllegalChessMovementException("cant move. has other pieces between");
       }
     } else {
@@ -159,7 +159,6 @@ public class Board {
 
   private void createPawns(){
     for(int i=0; i < 8; i++){
-      assert(this.boardCells.size() == 64);
       this.pieces.add( new WPawn(this.boardCells.get(8+i)) );
       this.pieces.add( new BPawn(this.boardCells.get(48+i)) );
     }

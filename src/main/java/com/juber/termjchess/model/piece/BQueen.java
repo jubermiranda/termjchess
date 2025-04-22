@@ -16,5 +16,8 @@ public class BQueen extends Queen{
   public boolean isB(){
     return true;
   }
+  @Override
+  public String getName(){
+    return "Black Queen";
+  }
 }
-

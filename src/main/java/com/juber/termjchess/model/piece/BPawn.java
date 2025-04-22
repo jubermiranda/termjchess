@@ -35,6 +35,11 @@ public class BPawn extends Pawn{
     return true;
   }
 
+  @Override
+  public String getName(){
+    return "Black Pawn";
+  }
+
   @Override 
   public ArrayList<String> getTrace(BaseCell dst){
     ArrayList<String> result = new ArrayList<String>();

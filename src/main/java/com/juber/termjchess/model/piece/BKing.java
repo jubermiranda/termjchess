@@ -17,5 +17,10 @@ public class BKing extends King{
     return true;
   }
 
+  @Override
+  public String getName(){
+    return "Black King";
+  }
+
 }
 

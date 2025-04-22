@@ -16,5 +16,10 @@ public class WKnight extends Knight{
   public boolean isB(){
     return false;
   }
+
+  @Override
+  public String getName(){
+    return "White Knight";
+  }
 }
 

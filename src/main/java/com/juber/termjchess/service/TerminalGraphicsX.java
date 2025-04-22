@@ -22,8 +22,6 @@ public class TerminalGraphicsX implements GraphicsProvider {
   private State state;
   private boolean turn_0;
   private GameWarning lastWarning;
-  private Set<String> hintCells;
-  private StopWatch hintCellsSW;
   private char[][] frame;
   private TermPrinter printer;
 
@@ -31,7 +29,6 @@ public class TerminalGraphicsX implements GraphicsProvider {
     this.state = State.CREATED;
     this.turn_0 = true;
     this.lastWarning = null;
-    this.hintCells = new HashSet<String>();
     this.printer = new TermPrinter(STD_SPRITE_SIZE, 1, 0, 0);
 
     int size = this.printer.getBoardSize();
@@ -58,7 +55,7 @@ public class TerminalGraphicsX implements GraphicsProvider {
 
     this.updateFrame();
 
-    TermPrinter.printBuffer(this.frame);
+    this.printer.printBuffer(this.frame);
   }
 
   public void showWarning(GameWarning w) {
@@ -74,10 +71,7 @@ public class TerminalGraphicsX implements GraphicsProvider {
   }
 
   public void hintCells(ArrayList<String> cells, int duration) {
-    this.hintCells.clear();
-    for (String s : cells) {
-      this.hintCells.add(s);
-    }
+    this.printer.updateHints(cells);
   }
 
   public void hintCells(ArrayList<String> cells) {
@@ -87,58 +81,67 @@ public class TerminalGraphicsX implements GraphicsProvider {
   public void stopEngine() {
     if (this.piecesOnBoard != null)
       this.piecesOnBoard.clear();
-    if (this.hintCells != null)
-      this.hintCells.clear();
     this.state = State.STOPPED;
   }
 
   private void updateFrame() {
-    for (Map.Entry<String, BasePiece> entry : this.piecesOnBoard.entrySet()) {
-      String key = entry.getKey();
-      BasePiece value = entry.getValue();
+    for(int i=0; i < 8; i++){
+      for(int j=0; j < 8; j++){
 
-      int row = BaseCell.getRowFromName(key);
-      int col = BaseCell.getColFromName(key);
-      char[][] sprite;
+        String key = BaseCell.cellName(i, j);
+        BasePiece value = this.piecesOnBoard.get(key);
+        char [][] sprite = this.chooseSprite(value);
 
-      if (value instanceof BPawn)
-        sprite = ChessSpriteXProvider.BPawnSprite;
-      else if (value instanceof WPawn)
-        sprite = ChessSpriteXProvider.WPawnSprite;
-      else if (value instanceof BKnight)
-        sprite = ChessSpriteXProvider.BKnightSprite;
-      else if (value instanceof WKnight)
-        sprite = ChessSpriteXProvider.WKnightSprite;
-      else if (value instanceof BBishop)
-        sprite = ChessSpriteXProvider.BBishopSprite;
-      else if (value instanceof WBishop)
-        sprite = ChessSpriteXProvider.WBishopSprite;
-      else if (value instanceof BRook)
-        sprite = ChessSpriteXProvider.BRookSprite;
-      else if (value instanceof WRook)
-        sprite = ChessSpriteXProvider.WRookSprite;
-      else if (value instanceof BQueen)
-        sprite = ChessSpriteXProvider.BQueenSprite;
-      else if (value instanceof WQueen)
-        sprite = ChessSpriteXProvider.WQueenSprite;
-      else if (value instanceof BKing)
-        sprite = ChessSpriteXProvider.BKingSprite;
-      else
-        sprite = ChessSpriteXProvider.WKingSprite;
+        int row = BaseCell.getRowFromName(key);
+        int col = BaseCell.getColFromName(key);
 
-      this.printer.drawPiece(
-          sprite,
-          row,
-          col,
-          this.frame);
+        this.printer.drawPiece(
+            sprite,
+            row,
+            col,
+            this.frame
+        );
+      }
     }
+  }
+
+  private char[][] chooseSprite(BasePiece value){
+    char[][] sprite;
+
+    if (value == null)
+      sprite = ChessSpriteXProvider.EmptySprite(STD_SPRITE_SIZE, STD_SPRITE_SIZE);
+    else if (value instanceof BPawn)
+      sprite = ChessSpriteXProvider.BPawnSprite;
+    else if (value instanceof WPawn)
+      sprite = ChessSpriteXProvider.WPawnSprite;
+    else if (value instanceof BKnight)
+      sprite = ChessSpriteXProvider.BKnightSprite;
+    else if (value instanceof WKnight)
+      sprite = ChessSpriteXProvider.WKnightSprite;
+    else if (value instanceof BBishop)
+      sprite = ChessSpriteXProvider.BBishopSprite;
+    else if (value instanceof WBishop)
+      sprite = ChessSpriteXProvider.WBishopSprite;
+    else if (value instanceof BRook)
+      sprite = ChessSpriteXProvider.BRookSprite;
+    else if (value instanceof WRook)
+      sprite = ChessSpriteXProvider.WRookSprite;
+    else if (value instanceof BQueen)
+      sprite = ChessSpriteXProvider.BQueenSprite;
+    else if (value instanceof WQueen)
+      sprite = ChessSpriteXProvider.WQueenSprite;
+    else if (value instanceof BKing)
+      sprite = ChessSpriteXProvider.BKingSprite;
+    else
+      sprite = ChessSpriteXProvider.WKingSprite;
+    return sprite;
   }
 
   private void playAnimationStart() {
     TermPrinter.clearScreen();
     this.drawnHomeScreen();
 
-    TermPrinter.printProgressBar();
+    //TermPrinter.printProgressBar();
     TermPrinter.clearScreen();
   }
 
@@ -149,7 +152,8 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.clearFrame(homeScreen, 0, 0, 24, 99);
     TermPrinter.drawBox(homeScreen, 0, 0, 24, 99);
     TermPrinter.drawSprite(logo, 9, 9, homeScreen);
-    TermPrinter.printBuffer(homeScreen);
+
+    this.printer.printBuffer(homeScreen);
   }
 
   

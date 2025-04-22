@@ -1,9 +1,13 @@
 package com.juber.termjchess.util;
 
 import com.juber.termjchess.model.BoxChar;
+import com.juber.termjchess.model.board.BaseCell;
 
 import java.lang.IllegalArgumentException;
 import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
 
 public class TermPrinter {
 
@@ -14,31 +18,22 @@ public class TermPrinter {
   private int bStartRow;
   private int bStartCol;
 
+  private Set<String> hintCells;
+
   public TermPrinter(int cellSize, int cellSpacing, int boardStartR, int boardStartC) {
     this.cellSize = cellSize + 2*cellSpacing;
     this.cellSpacing = cellSpacing;
     this.boardSize = this.calcBoardSize();
     this.bStartRow = boardStartR;
     this.bStartCol = boardStartC;
+    this.hintCells = new HashSet<String>();
   }
 
   public int getBoardSize(){
     return this.boardSize;
   }
 
-  public static void clearFrame(
-      char[][] out,
-      int startRow,
-      int startCol,
-      int endRow,
-      int endCol
-  ) {
-    for(int i=startRow; i < endRow; i++){
-      for(int j=startCol; j < endCol; j++){
-        out[i][j] = ' ';
-      }
-    }
-  }
+
 
   public void printBoard(char[][] out) {
     try {
@@ -56,7 +51,25 @@ public class TermPrinter {
     this.drawnSprite3(this.bStartRow, this.bStartCol, out);
   }
 
-  public void drawPiece(char[][]sprite, int cellRow, int cellCol, char[][]out) throws IllegalArgumentException{
+  public void updateHints(ArrayList<String>cells){
+    this.hintCells.clear();
+    for(String s: cells){
+      this.hintCells.add(s);
+    }
+  }
+
+  public void updateHints(){
+    this.hintCells.clear();
+  }
+
+  public void drawPiece(
+      char[][]sprite,
+      int cellRow,
+      int cellCol,
+      char[][]out
+
+  ) throws IllegalArgumentException{
+
     if(cellRow < 0 || cellRow > 7)
       throw new IllegalArgumentException("invalid cell row");
     if(cellCol < 0 || cellCol > 7)
@@ -74,6 +87,20 @@ public class TermPrinter {
         out[row][col++] = sprite[i][j];
       }
       row++;
+    }
+  }
+
+  public static void clearFrame(
+      char[][] out,
+      int startRow,
+      int startCol,
+      int endRow,
+      int endCol
+  ) {
+    for(int i=startRow; i < endRow; i++){
+      for(int j=startCol; j < endCol; j++){
+        out[i][j] = ' ';
+      }
     }
   }
 
@@ -103,13 +130,19 @@ public class TermPrinter {
     }
   }
 
-  public static void printBuffer(char[][] buffer){
+  public void printBuffer(char[][] buffer){
     for(int i=0; i < buffer.length; i++){
       for(int j=0; j < buffer[i].length; j++){
+        // String color = getApropriateColor(i, j);
+        // String bg = getApropriateBg(i, j);
+        // System.out.print(color);
+        // System.out.print(bg);
         System.out.print(buffer[i][j]);
       }
       System.out.println();
     }
+    //System.out.print(BoxChar.RESET);
+    //this.updateHints();
   }
 
   public static void moveCursor(int row, int col) {
@@ -327,6 +360,83 @@ public class TermPrinter {
         return false;
     }
     return true;
+  }
+
+  private String getApropriateColor(int i, int j){
+    String result = "";
+    if(i > this.bStartRow && j > bStartCol){
+      String cellName = getCellNameRelative(i, j);
+
+      if(cellName.equals("BORDER")){
+        // custom border color can be impl here
+        return "";
+      }else if(cellName.equals("HINT")){
+        return "";
+      } else if(cellName.equals("")){
+        return "";
+      } else {
+        // chose cell foreground color
+        BaseCell cell = BaseCell.createCell(cellName);
+        if(cell == null)
+          return "";
+        result = (cell.isW())?BoxChar.BLACK:BoxChar.PURPLE;
+      }
+    }
+    return result;
+  }
+
+  private String getApropriateBg(int i, int j){
+    String result = "";
+    if(i > this.bStartRow && j > bStartCol){
+      String cellName = getCellNameRelative(i, j);
+      boolean toHint = this.hintCells.contains(cellName);
+
+      if(cellName.equals("BORDER")){
+
+        // custom border background color can be impl here
+        return "";
+
+      }else if(cellName.equals("HINT")){
+
+        if(toHint)
+          return BoxChar.YELLOW;
+        else
+          return "";
+
+      } else if(cellName.equals("")){
+        return "";
+
+      } else {
+        // chose cell background color
+        BaseCell cell = BaseCell.createCell(cellName);
+        if(cell == null)
+          return "";
+        result = (cell.isW())?BoxChar.BG_PURPLE:BoxChar.BG_BLACK;
+      }
+    }
+    return result;
+
+  }
+
+  private String getCellNameRelative(int i, int j){
+    int row = i / (this.cellSize + 2*this.cellSpacing + 1);
+    int col = i / (this.cellSize + 2*this.cellSpacing + 1);
+    if(row < 7 && col < 7){
+      int r_row = i % (this.cellSize + 2*this.cellSpacing + 1);
+      int r_col = i % (this.cellSize + 2*this.cellSpacing + 1);
+      if(r_row == 0 || r_col == 0)
+        return "BORDER";
+      if(
+          (r_row <= this.cellSpacing || r_col <= this.cellSpacing) ||
+          (r_row > this.cellSpacing + this.cellSize ||r_col > this.cellSpacing + this.cellSize)
+      ){
+        return "HINT";
+      }
+
+      return BaseCell.cellName(row, col);
+    }
+
+    return "";
   }
 
 }

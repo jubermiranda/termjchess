@@ -35,6 +35,11 @@ public class WPawn extends Pawn{
     return false;
   }
 
+  @Override
+  public String getName(){
+    return "White Pawn";
+  }
+
   @Override 
   public ArrayList<String> getTrace(BaseCell dst){
     ArrayList<String> result = new ArrayList<String>();

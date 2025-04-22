@@ -53,7 +53,6 @@ public class TermJChessGame{
       }  catch (IllegalChessMovementException e){
         // user type valid command (two cells)
         // but this movement is not allowed in chess
-        // lets hint cells
         this.graphics.hintCells(fromTo);
 
       }  catch (IllegalArgumentException e){
@@ -90,12 +89,12 @@ public class TermJChessGame{
     if(
         in.length() != 5 ||
         (in.charAt(0) < 'a' || in.charAt(0) > 'h')||
-        (in.charAt(1) < '1' || in.charAt(0) > '8')||
+        (in.charAt(1) < '1' || in.charAt(1) > '8')||
         (in.charAt(2) != ' ') ||
-        (in.charAt(3) < 'a' || in.charAt(0) > 'h')||
-        (in.charAt(4) < '1' || in.charAt(0) > '8')
+        (in.charAt(3) < 'a' || in.charAt(3) > 'h')||
+        (in.charAt(4) < '1' || in.charAt(4) > '8')
       ){
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("len: " + Integer.toString(in.length()));
     }
 
     result.add(in.substring(0, 2));

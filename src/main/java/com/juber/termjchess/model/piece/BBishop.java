@@ -17,4 +17,9 @@ public class BBishop extends Bishop {
     return true;
   }
 
+  @Override
+  public String getName(){
+    return "Black Bishop";
+  }
+
 }
