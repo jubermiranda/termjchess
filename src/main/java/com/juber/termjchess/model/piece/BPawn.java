@@ -49,7 +49,7 @@ public class BPawn extends Pawn{
     if(!this.has_moved){
       if(BaseCell.rowDistance(this.position, dst) == 2){
         BaseCell cell = BaseCell.createCell(
-            this.position.getRow()+1, 
+            this.position.getRow()-1, 
             this.position.getCol()
         ); 
         result.add(cell.cellName());

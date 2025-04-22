@@ -41,7 +41,15 @@ public class Board {
       throw new IllegalChessMovementException("no piece on src");
 
     BasePiece piece = this.piecesOnBoard.get(src);
-    if(!this.piecesOnBoard.containsValue(dst)){
+    // check turn
+    if(
+        (piece.isW() && !(this.turn_0)) ||
+        (piece.isB() && this.turn_0)
+    ){
+      throw new IllegalChessMovementException("no piece on src");
+    }
+
+    if(!this.piecesOnBoard.containsKey(dst)){
       // dst cell is empty. try move to it
       if(!(piece.canMoveTo(BaseCell.createCell(dst)))){
         String errMsg = "Cant move " + piece.toString() + " to " + dst;
@@ -51,8 +59,9 @@ public class Board {
       // check cells btw src - dst
       ArrayList<String> trace = piece.getTrace(BaseCell.createCell(dst));
       for(String cell: trace){
-        if(this.piecesOnBoard.containsKey(cell))
+        if(this.piecesOnBoard.containsKey(cell)){
           throw new IllegalChessMovementException("cant move. has other pieces between");
+        }
       }
     } else {
       // dst contains piece. try capture 
@@ -68,9 +77,14 @@ public class Board {
       piece.moveTo(BaseCell.createCell(dst));
       this.piecesOnBoard.remove(src);
       this.piecesOnBoard.put(dst, piece);
+      this.updateTurn();
     } catch(IllegalChessMovementException e){
       throw e;
     }
+  }
+
+  private void updateTurn(){
+    this.turn_0 = !(this.turn_0);
   }
 
   private boolean canCapture(BasePiece src, BasePiece dst){
