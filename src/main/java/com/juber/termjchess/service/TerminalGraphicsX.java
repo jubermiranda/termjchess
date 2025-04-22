@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 
-public class TerminalGraphicsX implements GraphicsProvider<char[][]> {
+public class TerminalGraphicsX implements GraphicsProvider {
   private int STD_SPRITE_SIZE = 11;
 
   private Map<String, BasePiece> piecesOnBoard;
@@ -40,6 +40,7 @@ public class TerminalGraphicsX implements GraphicsProvider<char[][]> {
     this.printer.printBoard(this.frame);
   }
 
+  @Override
   public void startEngine(Map<String, BasePiece> pieces) throws Exception {
     if (pieces != null) {
       if (pieces.size() != 32)
@@ -50,6 +51,7 @@ public class TerminalGraphicsX implements GraphicsProvider<char[][]> {
     }
   }
 
+  @Override
   public void drawnNewFrame() throws Exception {
     if (this.state != State.RUNNING)
       return;

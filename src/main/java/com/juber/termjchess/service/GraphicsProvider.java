@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface GraphicsProvider<FrameType> {
+public interface GraphicsProvider {
   public void startEngine(Map<String, BasePiece> pieces) throws Exception;
 
   public void drawnNewFrame() throws Exception;
