@@ -21,18 +21,22 @@ public abstract class BasePiece {
 
   public abstract ArrayList<String> getTrace(BaseCell dst);
 
-  protected boolean isAlive(){
+  public boolean isSameType(BasePiece other){
+    return (this.isW() == other.isW());
+  }
+
+  public boolean isAlive(){
     return (this.position != null);
+  }
+
+  public void kill(){
+    this.position = null;
   }
 
   public String getPositionName(){
     if(this.position != null)
       return this.position.cellName();
     return "";
-  }
-
-  protected void kill(){
-    this.position = null;
   }
 
 }

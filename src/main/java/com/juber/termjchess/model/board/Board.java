@@ -1,6 +1,7 @@
 package com.juber.termjchess.model.board;
 
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
+import com.juber.termjchess.exception.IllegalChessMovementException;
 
 import com.juber.termjchess.model.Player;
 import com.juber.termjchess.model.piece.*;
@@ -15,6 +16,7 @@ public class Board {
   private ArrayList<BasePiece> pieces;
   private Map<String, BasePiece> piecesOnBoard;
   private boolean turn_0;
+  private boolean gameOver;
 
   public Board() throws Exception {
     try {
@@ -26,6 +28,56 @@ public class Board {
     } catch (InvalidBoardCellPosition e){
       throw new Exception("error creating board cells");
     }
+  }
+
+  public boolean gameOver(){
+    return this.gameOver;
+  }
+
+  public void move(String src, String dst) throws IllegalArgumentException, IllegalChessMovementException{
+    if(!(BaseCell.isValidPosition(src)) || !(BaseCell.isValidPosition(dst)))
+      throw new IllegalArgumentException("invalid position");
+    if(!this.piecesOnBoard.containsValue(src))
+      throw new IllegalChessMovementException("no piece on src");
+
+    BasePiece piece = this.piecesOnBoard.get(src);
+    if(!this.piecesOnBoard.containsValue(dst)){
+      // dst cell is empty. try move to it
+      if(!(piece.canMoveTo(BaseCell.createCell(dst)))){
+        String errMsg = "Cant move " + piece.toString() + " to " + dst;
+        throw new IllegalChessMovementException(errMsg);
+      }
+
+      // check cells btw src - dst
+      ArrayList<String> trace = piece.getTrace(BaseCell.createCell(dst));
+      for(String cell: trace){
+        if(this.piecesOnBoard.containsValue(cell))
+          throw new IllegalChessMovementException("cant move. has other pieces between");
+      }
+    } else {
+      // dst contains piece. try capture 
+      BasePiece dstPiece = this.piecesOnBoard.get(dst);
+      if(this.canCapture(piece, dstPiece))
+        dstPiece.kill();
+      else 
+        throw new IllegalChessMovementException("cant move to " + dst);
+    }
+
+    //move
+    try {
+      piece.moveTo(BaseCell.createCell(dst));
+      this.piecesOnBoard.remove(src);
+      this.piecesOnBoard.put(dst, piece);
+    } catch(IllegalChessMovementException e){
+      throw e;
+    }
+  }
+
+  private boolean canCapture(BasePiece src, BasePiece dst){
+    return (
+        src.canMoveTo(BaseCell.createCell(dst.getPositionName())) && 
+        !(src.isSameType(dst))
+    );
   }
 
   private void createBoard() throws InvalidBoardCellPosition {
@@ -64,6 +116,9 @@ public class Board {
 
     for(BasePiece p: this.pieces)
       this.piecesOnBoard.put(p.getPositionName(), p);
+
+    this.turn_0 = true;
+    this.gameOver = false;
   }
 
   public String whatsOnCell(String cell) {

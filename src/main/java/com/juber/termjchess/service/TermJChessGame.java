@@ -1,13 +1,15 @@
 package com.juber.termjchess.service;
 
 import com.juber.termjchess.model.GameWarning;
+import com.juber.termjchess.model.board.Board;
 import com.juber.termjchess.service.GraphicsProvider;
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TermJChessGame{
-  enum GraphicsType {
+  public enum GraphicsType {
     TermX,
     TermLight,
     GraphicalInterface
@@ -39,14 +41,14 @@ public class TermJChessGame{
       this.graphics.drawnNewFrame();
       System.out.print("[MOVE]> ");
       userIn = scanner.nextLine();
-      if(userIn.equal("exit"))
+      if(userIn.equals("exit"))
         break;
 
-      String [] fromTo;
+      ArrayList<String> fromTo = new ArrayList<String>();
       try {
 
         fromTo = validateFromTo(userIn);
-        this.board.move(fromTo[0], fromTo[1]);
+        this.board.move(fromTo.get(0), fromTo.get(1));
 
       }  catch (IllegalChessMovementException e){
         // user type valid command (two cells)
@@ -67,7 +69,7 @@ public class TermJChessGame{
   //
   // priave
 
-  private createApropriateGraphicsProvider(GraphicsType type){
+  private void createApropriateGraphicsProvider(GraphicsType type){
     switch(type){
       case TermX:
         this.graphics = new TerminalGraphicsX();
@@ -79,6 +81,26 @@ public class TermJChessGame{
         //TODO
       break;
     }
+  }
+
+  private ArrayList<String> validateFromTo(String in) 
+      throws IllegalArgumentException, IllegalChessMovementException{
+
+    ArrayList<String> result = new ArrayList<String>();
+    if(
+        in.length() != 5 ||
+        (in.charAt(0) < 'a' || in.charAt(0) > 'h')||
+        (in.charAt(1) < '1' || in.charAt(0) > '8')||
+        (in.charAt(2) != ' ') ||
+        (in.charAt(3) < 'a' || in.charAt(0) > 'h')||
+        (in.charAt(4) < '1' || in.charAt(0) > '8')
+      ){
+      throw new IllegalArgumentException();
+    }
+
+    result.add(in.substring(0, 2));
+    result.add(in.substring(3));
+    return result;
   }
 
 }

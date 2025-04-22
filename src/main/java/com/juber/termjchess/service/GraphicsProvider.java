@@ -10,7 +10,7 @@ import java.util.Map;
 public interface GraphicsProvider {
   public void startEngine(Map<String, BasePiece> pieces) throws Exception;
 
-  public void drawnNewFrame() throws Exception;
+  public void drawnNewFrame();
 
   public void showWarning(GameWarning w);
 

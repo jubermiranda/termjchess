@@ -55,6 +55,12 @@ public abstract class BaseCell {
     return this.col;
   }
 
+  public static boolean isValidPosition(String pos){
+    int row = getRowFromName(pos);
+    int col = getColFromName(pos);
+    return (row >= 0 || row <= 7 || col >= 0 || col <= 7);
+  }
+
   public static int getColFromName(String name){
     return name.charAt(0) - 'a';
   }

@@ -52,7 +52,7 @@ public class TerminalGraphicsX implements GraphicsProvider {
   }
 
   @Override
-  public void drawnNewFrame() throws Exception {
+  public void drawnNewFrame() {
     if (this.state != State.RUNNING)
       return;
 

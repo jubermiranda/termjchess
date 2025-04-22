@@ -1,21 +1,11 @@
 package com.juber.termjchess;
 
-import com.juber.termjchess.util.TermPrinter;
-import com.juber.termjchess.service.TerminalGraphicsX;
-import com.juber.termjchess.model.board.Board;
+import com.juber.termjchess.service.TermJChessGame;
 
 public class Main {
-    public static void main(String[] args) {
-      Board board; 
-      try {
-        board = new Board();
-        TerminalGraphicsX graphics = new TerminalGraphicsX();
-        graphics.startEngine(board.getPiecesConfig());
-        graphics.drawnNewFrame();
-
-      } catch (Exception e){
-        System.out.println("Err: " + e.getMessage());
-        return;
-      }
+  public static void main(String[] args) {
+    TermJChessGame.GraphicsType type = TermJChessGame.GraphicsType.TermX;
+    TermJChessGame game = new TermJChessGame(type);
+    game.runGame();
   }
 }

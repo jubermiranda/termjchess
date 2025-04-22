@@ -185,7 +185,7 @@ public class TermPrinter {
             BoxChar.RESET
         );
       }
-      int minSleep = 2 + (int)(0.4 * progress);
+      int minSleep = 1 + (int)(0.1 * progress);
       int sleepTime = random.nextInt(minSleep + 1) + minSleep;
       try {
           Thread.sleep(sleepTime);
