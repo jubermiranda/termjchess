@@ -166,76 +166,73 @@ public class TermPrinter {
   }
 
 
-  public static void printProgressBar(){
-    int totalWidth = 100;
-    clearLine();
+  public static void printProgressBar() {
+    final int totalWidth = 50;
+    final Random random = new Random();
+    final String block = String.valueOf(BoxChar.BLOCK);
+    final String hLine = String.valueOf(BoxChar.H_LINE);
 
-    String h_line = String.valueOf(BoxChar.H_LINE);
-    String block = String.valueOf(BoxChar.BLOCK);
-
-    System.out.printf("%s%s%s%s%s%n", 
-        BoxChar.PURPLE, 
-        BoxChar.TL_CORNER,
-        h_line.repeat(totalWidth + 2),
-        BoxChar.TR_CORNER,
-        BoxChar.RESET
-    );
-
-    Random random = new Random();
-
-    for (int progress = 0; progress <= 100; progress++) {
-      int filled = progress;
-      int empty = totalWidth - progress;
-
-      String color;
-      if (progress < 33) {
-          color = BoxChar.BLUE;
-      } else if (progress < 66) {
-          color = BoxChar.RED;
-      } else {
-          color = BoxChar.PURPLE;
-      }
-
-      clearLine();
-
-      System.out.printf("%s│%s%s%s%s │ %.2f%%%s%n",
-            BoxChar.PURPLE,
-            color, block.repeat(filled),
-            " ".repeat(empty),
-            BoxChar.PURPLE,
-            (float) progress,
-            BoxChar.RESET
-      );
-
-      if (progress == 100) {
-        System.out.printf("%s%s%s%s%s%n", 
-            BoxChar.PURPLE,
-            BoxChar.BL_CORNER,
-            h_line.repeat(totalWidth + 2),
-            BoxChar.BR_CORNER,
-            BoxChar.RESET
-        );
-      } else {
-        clearLine();
-        System.out.printf("\033[2A%s%s%s%s%s%n", 
+    // Top border
+    System.out.printf("%s%s%s%s%s%n",
             BoxChar.PURPLE,
             BoxChar.TL_CORNER,
-            h_line.repeat(totalWidth + 2),
+            hLine.repeat(totalWidth + 2),
             BoxChar.TR_CORNER,
             BoxChar.RESET
+    );
+
+    // Middle line (initial)
+    System.out.printf("%s│ %s%s│ 0.00%%%s%n",
+            BoxChar.PURPLE,
+            " ".repeat(totalWidth),
+            BoxChar.PURPLE,
+            BoxChar.RESET
+    );
+
+    // Bottom border
+    System.out.printf("%s%s%s%s%s%n",
+            BoxChar.PURPLE,
+            BoxChar.BL_CORNER,
+            hLine.repeat(totalWidth + 2),
+            BoxChar.BR_CORNER,
+            BoxChar.RESET
+    );
+
+    for (int progress = 0; progress <= 100; progress+= 10) {
+        int filled = progress * totalWidth / 100;
+        int empty = totalWidth - filled;
+
+        String color = progress < 33 ? BoxChar.BLUE :
+                       progress < 66 ? BoxChar.RED : BoxChar.GREEN;
+
+        // Move cursor up 2 lines to reach the progress bar line
+        System.out.print("\033[2A");
+
+        // Rewrite progress line
+        System.out.printf("%s│ %s%s%s%s│ %6.2f%%%s%n",
+                BoxChar.PURPLE,
+                color, block.repeat(filled),
+                BoxChar.RESET + " ".repeat(empty),
+                BoxChar.PURPLE,
+                (float) progress,
+                BoxChar.RESET
         );
-      }
-      int minSleep = 1 + (int)(0.1 * progress);
-      int sleepTime = random.nextInt(minSleep + 1) + minSleep;
-      try {
-          Thread.sleep(sleepTime);
-      } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-          System.err.println("Progress interrupted: " + e.getMessage());
-          break;
-      }
+
+        System.out.print("\033[1B");
+        System.out.flush();
+
+        int minSleep = 1 + (int)(0.1 * progress);
+        int sleepTime = random.nextInt(minSleep + 99) + minSleep;
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Progress interrupted: " + e.getMessage());
+            break;
+        }
     }
   }
+
 
   //
   //
