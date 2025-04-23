@@ -1,5 +1,6 @@
 package com.juber.termjchess.model.piece;
 
+import com.juber.termjchess.exception.IllegalChessMovementException;
 import com.juber.termjchess.model.board.BaseCell;
 
 import java.util.ArrayList;
@@ -23,6 +24,16 @@ public class WPawn extends Pawn{
         (this.has_moved && (dst.getRow() - this.position.getRow() == 1)) ||
         (!this.has_moved && (dst.getRow() - this.position.getRow() <= 2))
     );
+  }
+
+  @Override
+  public void moveTo(BaseCell dst) throws IllegalChessMovementException{
+    try {
+      super.moveTo(dst);
+    } catch(IllegalChessMovementException e){
+      if(!(this.canCapture(dst)))
+        throw e;
+    }
   }
 
   @Override 

@@ -62,3 +62,19 @@ esta parte pode ser otimizada, criando um outro frame 'cache' para monitorar se 
 
 ---
 
+### `TermJChessGame `
+
+- **Descrição Geral**:
+Classe principal, responsável por rodar o jogo. O nível mais alto da aplicação. Nessa implementação, um objeto dessa classe é criado no `Main` e chamando o método principal runGame().
+Ao criar um objeto dessa classe, um tipo de interface deve ser passado (enum TermJChessGame.GraphicsType). atualmente apenas TermX foi implementado.
+A classe cria um objeto para os graficos (GraphicsProvider),  e chama a função para iniciar a engine gráfica.
+então quando a função runGame é chamada, executa o loop do game.
+
+
+
+---
+
+- **Função runGame()**:
+esta função consiste em um loop que roda até que o board tenha o valor de gameOver() como true, ou o usuário digite 'exit'.
+Desenh um frame, le a entrada do usuário.
+então tenta validar a entrada e executar o movimento. Caso haja problemas eles são tratados no chatch(...).

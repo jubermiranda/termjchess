@@ -54,13 +54,11 @@ public class TermJChessGame{
         // user type valid command (two cells)
         // but this movement is not allowed in chess
         this.graphics.hintCells(fromTo);
-        System.out.println(e.getMessage());
 
       }  catch (IllegalArgumentException e){
         // user type invalid comand
         GameWarning warning = new GameWarning("Invalid command. user: [src cell] [dst cell]", 3);
         this.graphics.showWarning(warning);
-        System.out.println(e.getMessage());
       }
     }
   }

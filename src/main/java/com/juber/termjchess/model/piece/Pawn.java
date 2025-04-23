@@ -14,8 +14,6 @@ public abstract class Pawn extends BasePiece{
     this.has_moved = false;
   }
 
-  public abstract boolean canMoveTo (BaseCell dst);
-
   @Override
   public void moveTo(BaseCell dst) throws IllegalChessMovementException{
     if(this.canMoveTo(dst)){
@@ -46,6 +44,18 @@ public abstract class Pawn extends BasePiece{
       if(row < 6)
         result.add(BaseCell.cellName(row+2, col));
     }
+
+    return result;
+  }
+
+  public boolean canCapture(BaseCell cell){
+    int inc = (this.isW())?-1:1;
+    
+    int rowDiff = this.position.getRow() - cell.getRow();
+    int colDiff = this.position.getCol() - cell.getCol();
+    rowDiff = rowDiff * inc;
+
+    boolean result = (rowDiff == 1 && Math.abs(colDiff) == 1);
 
     return result;
   }

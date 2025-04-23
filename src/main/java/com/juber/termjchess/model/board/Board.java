@@ -52,12 +52,27 @@ public class Board {
     }
 
     if(!(srcPiece.canMoveTo(BaseCell.createCell(dst)))){
-      String errMsg = "Cant move " + srcPiece.toString() + " to " + dst;
-      throw new IllegalChessMovementException(errMsg);
+      boolean invalid = true;
+      if(srcPiece instanceof Pawn){
+        invalid = !(((Pawn)srcPiece).canCapture(BaseCell.createCell(dst)));
+      }
+      if(invalid){
+        String errMsg = "Cant move " + srcPiece.toString() + " to " + dst;
+        throw new IllegalChessMovementException(errMsg);
+      }
     }
+
     if(this.piecesOnBoard.containsKey(dst)){
       // dst contains piece. try capture 
-      if(this.canCapture(srcPiece, dstPiece)){
+      if(srcPiece instanceof Pawn){
+        if(
+          !(dstPiece.isSameType(srcPiece)) && 
+          ((Pawn)srcPiece).canCapture(BaseCell.createCell(dst))
+        ){
+          toCapture = true;
+        } else 
+        throw new IllegalChessMovementException("cant perfor move");
+      } else if(this.canCapture(srcPiece, dstPiece)){
         toCapture = true;
       } else 
         throw new IllegalChessMovementException("cant move to " + dst);
