@@ -22,6 +22,8 @@ public class ChessSpriteXProvider {
   private static final String bqueen_file = "queen_b";
 
   private static final String logo_file = "logo";
+  private static final int LABEL_ROW_SIZE = 5;
+  private static final int LABEL_COL_SIZE = 8;
 
   public static final char[][] WPawnSprite = loadSprite(wpawn_file);
   public static final char[][] BPawnSprite = loadSprite(bpawn_file);
@@ -53,6 +55,14 @@ public class ChessSpriteXProvider {
         result[i][j] = ' ';
 
     return result;
+  }
+
+  public static char[][] LabelSprite(char type, int n){
+    if(n < 0 || n > 7 || (type != 'r' && type != 'c'))
+      return new char[0][0];
+
+    String spriteName = "" + type + n;
+    return loadSprite(spriteName);
   }
 
 

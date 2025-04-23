@@ -29,11 +29,11 @@ public class TerminalGraphicsX implements GraphicsProvider {
     this.state = State.CREATED;
     this.turn_0 = true;
     this.lastWarning = null;
-    this.printer = new TermPrinter(STD_SPRITE_SIZE, 1, 0, 0);
+    this.printer = new TermPrinter(STD_SPRITE_SIZE, 1);
 
-    int size = this.printer.getBoardSize();
-    this.frame = new char[size][size];
-    TermPrinter.clearFrame(this.frame, 0, 0, size, size);
+    int[] size = this.printer.getFrameSize();
+    this.frame = new char[size[0]][size[1]];
+    TermPrinter.clearFrame(this.frame, 0, 0, size[0], size[1]);
     this.printer.printBoard(this.frame);
   }
 
@@ -141,7 +141,7 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.clearScreen();
     this.drawnHomeScreen();
 
-    //TermPrinter.printProgressBar();
+    TermPrinter.printProgressBar();
     TermPrinter.clearScreen();
   }
 

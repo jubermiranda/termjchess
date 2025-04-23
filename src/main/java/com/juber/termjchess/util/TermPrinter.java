@@ -2,6 +2,7 @@ package com.juber.termjchess.util;
 
 import com.juber.termjchess.model.BoxChar;
 import com.juber.termjchess.model.board.BaseCell;
+import com.juber.termjchess.service.ChessSpriteXProvider;
 
 import java.lang.IllegalArgumentException;
 import java.util.Random;
@@ -20,17 +21,21 @@ public class TermPrinter {
 
   private Set<String> hintCells;
 
-  public TermPrinter(int cellSize, int cellSpacing, int boardStartR, int boardStartC) {
+  public TermPrinter(int cellSize, int cellSpacing) {
     this.cellSize = cellSize + 2*cellSpacing;
     this.cellSpacing = cellSpacing;
     this.boardSize = this.calcBoardSize();
-    this.bStartRow = boardStartR;
-    this.bStartCol = boardStartC;
+    this.bStartRow = 6;
+    this.bStartCol = 9;
     this.hintCells = new HashSet<String>();
   }
 
-  public int getBoardSize(){
-    return this.boardSize;
+  public int[] getFrameSize(){
+    int []result = new int[2];
+    result[0] =  this.boardSize + 6;
+    result[1] =  this.boardSize + 9 + 100;
+
+    return result;
   }
 
 
@@ -45,10 +50,12 @@ public class TermPrinter {
     int endRow = this.bStartRow + boardSize - 1;
     int endCol = this.bStartCol + boardSize - 1;
 
-    this.drawnSprite0(this.bStartRow, this.bStartCol, out);
-    this.drawnSprite1(this.bStartRow, this.bStartCol, out);
-    this.drawnSprite2(this.bStartRow, this.bStartCol, out);
-    this.drawnSprite3(this.bStartRow, this.bStartCol, out);
+    this.drawnBoardSprite0(this.bStartRow, this.bStartCol, out);
+    this.drawnBoardSprite1(this.bStartRow, this.bStartCol, out);
+    this.drawnBoardSprite2(this.bStartRow, this.bStartCol, out);
+    this.drawnBoardSprite3(this.bStartRow, this.bStartCol, out);
+    this.drawnLabelSprites(out);
+    this.drawnRightPanel(out);
   }
 
   public void updateHints(ArrayList<String>cells){
@@ -236,7 +243,7 @@ public class TermPrinter {
   //
   // private ----------------------------------------
 
-  private void drawnSprite0(int row, int col, char[][]out){
+  private void drawnBoardSprite0(int row, int col, char[][]out){
     int endRow = row + this.cellSize + 1;
     int endCol = col + this.cellSize + 1;
 
@@ -253,7 +260,7 @@ public class TermPrinter {
     out[endRow][endCol] = BoxChar.CROSS;
   }
 
-  private void drawnSprite1(int row, int col, char[][]out){
+  private void drawnBoardSprite1(int row, int col, char[][]out){
     int startRow = row;
     int startCol = col + cellSize + 2;
 
@@ -277,7 +284,7 @@ public class TermPrinter {
     }
   }
 
-  private void drawnSprite2(int row, int col, char[][]out){
+  private void drawnBoardSprite2(int row, int col, char[][]out){
     int startRow = row + cellSize + 2;
     int startCol = col;
 
@@ -301,7 +308,7 @@ public class TermPrinter {
     }
   }
 
-  private void drawnSprite3(int row, int col, char[][]out){
+  private void drawnBoardSprite3(int row, int col, char[][]out){
     int startRow = row + cellSize + 2;
     int startCol = col + cellSize + 2;
     for(int i=0; i < 7; i++){
@@ -334,6 +341,44 @@ public class TermPrinter {
     }
   }
 
+  private void drawnLabelSprites(char[][] out){
+    int startRow;
+    int startCol;
+    char[][] sprite;
+
+    for(int i = 0; i < 8; i++){
+      sprite = ChessSpriteXProvider.LabelSprite('r', i);
+      startRow = 12 + (i*(this.cellSize + 1 ));
+      startCol = 0;
+      this.drawSprite(sprite, startRow, startCol, out);
+
+      sprite = ChessSpriteXProvider.LabelSprite('c', i);
+      startRow = 0;
+      startCol = 12 + (i*(this.cellSize + 1 ));
+      this.drawSprite(sprite, startRow, startCol, out);
+    }
+  }
+
+  private void drawnRightPanel(char[][]out){
+    int panelStartRow = 0;
+    int panelStartCol = this.boardSize + 12;
+    this.drawSprite(
+        ChessSpriteXProvider.LogoSprite,
+        panelStartRow + 8,
+        panelStartCol + 20,
+        out
+    );
+    TermPrinter.drawnVLine(panelStartRow, panelStartCol, this.boardSize + 6, out);
+  }
+
+  private static void drawnVLine(int startRow, int startCol, int size, char[][]out){
+    for(int i=0; i < size; i++){
+      if(out.length > i+startRow){
+        out[startRow+i][startCol] = BoxChar.V_LINE;
+      }
+    }
+  }
+
   private void checkMinimunSize(char[][]out) throws IllegalArgumentException{
     if(out == null)
       throw new IllegalArgumentException("null output");
@@ -348,7 +393,7 @@ public class TermPrinter {
   }
 
   private int calcBoardSize(){
-    int total = 8*(this.cellSize + 2*this.cellSpacing + 1) + 1;
+    int total = 8*(this.cellSize +  1) + 1;
     return total;
   }
 

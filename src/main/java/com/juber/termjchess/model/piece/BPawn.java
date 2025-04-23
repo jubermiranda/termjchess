@@ -20,8 +20,8 @@ public class BPawn extends Pawn{
     }
 
     return (
-        (this.has_moved && dst.getRow() - this.position.getRow() == -1) ||
-        (!this.has_moved && dst.getRow() - this.position.getRow() <= -2 )
+        (this.has_moved && (dst.getRow() - this.position.getRow() == -1)) ||
+        (!this.has_moved && (dst.getRow() - this.position.getRow() >= -2))
     );
   }
 

@@ -3,7 +3,6 @@ package com.juber.termjchess.model.board;
 import com.juber.termjchess.exception.InvalidBoardCellPosition;
 import com.juber.termjchess.exception.IllegalChessMovementException;
 
-import com.juber.termjchess.model.Player;
 import com.juber.termjchess.model.piece.*;
 
 import java.util.ArrayList;
@@ -34,49 +33,53 @@ public class Board {
     return this.gameOver;
   }
 
-  public void move(String src, String dst) throws IllegalArgumentException, IllegalChessMovementException{
+  public void move(String src, String dst, boolean perform) throws IllegalArgumentException, IllegalChessMovementException{
     if(!(BaseCell.isValidPosition(src)) || !(BaseCell.isValidPosition(dst)))
       throw new IllegalArgumentException("invalid position");
     if(!this.piecesOnBoard.containsKey(src))
       throw new IllegalChessMovementException("no piece on src");
 
-    BasePiece piece = this.piecesOnBoard.get(src);
+    BasePiece srcPiece = this.piecesOnBoard.get(src);
+    BasePiece dstPiece = this.piecesOnBoard.get(dst);
+    boolean toCapture = false;
     // check turn
     if(
-        (piece.isW() && !(this.turn_0)) ||
-        (piece.isB() && this.turn_0)
+        perform &&
+        (srcPiece.isW() && !(this.turn_0)) ||
+        (srcPiece.isB() && this.turn_0)
     ){
-      throw new IllegalChessMovementException("no piece on src");
+      throw new IllegalChessMovementException("cant perfor this move in this turn");
     }
 
-    if(!this.piecesOnBoard.containsKey(dst)){
-      // dst cell is empty. try move to it
-      if(!(piece.canMoveTo(BaseCell.createCell(dst)))){
-        String errMsg = "Cant move " + piece.toString() + " to " + dst;
-        throw new IllegalChessMovementException(errMsg);
-      }
-
-      // check cells btw src - dst
-      ArrayList<String> trace = piece.getTrace(BaseCell.createCell(dst));
-      for(String cell: trace){
-        if(this.piecesOnBoard.containsKey(cell)){
-          throw new IllegalChessMovementException("cant move. has other pieces between");
-        }
-      }
-    } else {
+    if(!(srcPiece.canMoveTo(BaseCell.createCell(dst)))){
+      String errMsg = "Cant move " + srcPiece.toString() + " to " + dst;
+      throw new IllegalChessMovementException(errMsg);
+    }
+    if(this.piecesOnBoard.containsKey(dst)){
       // dst contains piece. try capture 
-      BasePiece dstPiece = this.piecesOnBoard.get(dst);
-      if(this.canCapture(piece, dstPiece))
-        dstPiece.kill();
-      else 
+      if(this.canCapture(srcPiece, dstPiece)){
+        toCapture = true;
+      } else 
         throw new IllegalChessMovementException("cant move to " + dst);
     }
+    // check trace
+    ArrayList<String> trace = srcPiece.getTrace(BaseCell.createCell(dst));
+    for(String cell: trace){
+      if(this.piecesOnBoard.containsKey(cell)){
+        throw new IllegalChessMovementException("cant move. has other pieces between");
+      }
+    }
 
-    //move
+    if(!perform)
+      return;
+    // at this point the move can be performed
     try {
-      piece.moveTo(BaseCell.createCell(dst));
+      if(toCapture)
+        dstPiece.kill();
+        
+      srcPiece.moveTo(BaseCell.createCell(dst));
       this.piecesOnBoard.remove(src);
-      this.piecesOnBoard.put(dst, piece);
+      this.piecesOnBoard.put(dst, srcPiece);
       this.updateTurn();
     } catch(IllegalChessMovementException e){
       throw e;
@@ -85,6 +88,39 @@ public class Board {
 
   private void updateTurn(){
     this.turn_0 = !(this.turn_0);
+    this.verifyCheckMate();
+  }
+
+  private void verifyCheckMate(){
+    King wking = findKing('w');
+    King bking = findKing('b');
+    if(wking == null || bking == null)
+      return;
+
+    for (Map.Entry<String, BasePiece> entry : this.piecesOnBoard.entrySet()) {
+      if(entry.getValue().isW()){
+        try {
+          this.move(entry.getValue().getPositionName(), bking.getPositionName(), false);
+          this.gameOver = true;
+        } catch(Exception e) {}
+      } else {
+        try {
+          this.move(entry.getValue().getPositionName(), wking.getPositionName(), false);
+          this.gameOver = true;
+        } catch(Exception e) {}
+      }
+    }
+  }
+
+  private King findKing(char type){
+    for (BasePiece p: this.piecesOnBoard.values()) {
+      if(p instanceof WKing && type == 'w')
+        return (King)p;
+      if(p instanceof BKing && type == 'b')
+        return (King)p;
+    }
+
+    return null;
   }
 
   private boolean canCapture(BasePiece src, BasePiece dst){
