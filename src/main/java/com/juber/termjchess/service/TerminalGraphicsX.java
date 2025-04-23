@@ -146,12 +146,12 @@ public class TerminalGraphicsX implements GraphicsProvider {
   }
 
   void drawnHomeScreen(){
-    char[][] homeScreen = new char[25][100];
+    char[][] homeScreen = new char[25][180];
     char[][] logo = ChessSpriteXProvider.LogoSprite;
 
-    TermPrinter.clearFrame(homeScreen, 0, 0, 24, 99);
-    TermPrinter.drawBox(homeScreen, 0, 0, 24, 99);
-    TermPrinter.drawSprite(logo, 9, 9, homeScreen);
+    TermPrinter.clearFrame(homeScreen, 0, 0, 24, 179);
+    TermPrinter.drawBox(homeScreen, 0, 0, 24, 179);
+    TermPrinter.drawSprite(logo, 12, 60, homeScreen);
 
     this.printer.printBuffer(homeScreen);
   }

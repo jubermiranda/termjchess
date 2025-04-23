@@ -167,14 +167,20 @@ public class TermPrinter {
 
 
   public static void printProgressBar() {
-    final int totalWidth = 50;
+    final int totalWidth = 100;
     final Random random = new Random();
     final String block = String.valueOf(BoxChar.BLOCK);
     final String hLine = String.valueOf(BoxChar.H_LINE);
+    final int spacingLeft = 21;
+    final int spacingTop = 8;
+
+    // spacing top
+    System.out.printf("%s", "\n".repeat(spacingTop));
 
     // Top border
-    System.out.printf("%s%s%s%s%s%n",
+    System.out.printf("%s%s%s%s%s%s%n",
             BoxChar.PURPLE,
+            " ".repeat(spacingLeft),
             BoxChar.TL_CORNER,
             hLine.repeat(totalWidth + 2),
             BoxChar.TR_CORNER,
@@ -182,16 +188,18 @@ public class TermPrinter {
     );
 
     // Middle line (initial)
-    System.out.printf("%s│ %s%s│ 0.00%%%s%n",
+    System.out.printf("%s%s│ %s%s│ 0.00%%%s%n",
             BoxChar.PURPLE,
+            " ".repeat(spacingLeft),
             " ".repeat(totalWidth),
             BoxChar.PURPLE,
             BoxChar.RESET
     );
 
     // Bottom border
-    System.out.printf("%s%s%s%s%s%n",
+    System.out.printf("%s%s%s%s%s%s%n",
             BoxChar.PURPLE,
+            " ".repeat(spacingLeft),
             BoxChar.BL_CORNER,
             hLine.repeat(totalWidth + 2),
             BoxChar.BR_CORNER,
@@ -209,8 +217,9 @@ public class TermPrinter {
         System.out.print("\033[2A");
 
         // Rewrite progress line
-        System.out.printf("%s│ %s%s%s%s│ %6.2f%%%s%n",
+        System.out.printf("%s%s│ %s%s%s%s│ %6.2f%%%s%n",
                 BoxChar.PURPLE,
+                " ".repeat(spacingLeft),
                 color, block.repeat(filled),
                 BoxChar.RESET + " ".repeat(empty),
                 BoxChar.PURPLE,
@@ -221,7 +230,7 @@ public class TermPrinter {
         System.out.print("\033[1B");
         System.out.flush();
 
-        int minSleep = 1 + (int)(0.1 * progress);
+        int minSleep = 100 + (int)(0.1 * progress);
         int sleepTime = random.nextInt(minSleep + 99) + minSleep;
         try {
             Thread.sleep(sleepTime);
