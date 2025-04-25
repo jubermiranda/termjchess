@@ -160,7 +160,7 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.clearScreen();
     this.drawnHomeScreen();
 
-    //TermPrinter.printProgressBar();
+    TermPrinter.printProgressBar();
     TermPrinter.clearScreen();
   }
 
