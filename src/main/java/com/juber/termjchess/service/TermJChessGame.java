@@ -43,12 +43,19 @@ public class TermJChessGame{
       userIn = scanner.nextLine();
       if(userIn.equals("exit"))
         break;
+      if(userIn.equals("game over")){
+        ((TerminalGraphicsX) this.graphics).gameOver();
+        continue;
+      }
 
       ArrayList<String> fromTo = new ArrayList<String>();
       try {
 
         fromTo = validateFromTo(userIn);
         this.board.move(fromTo.get(0), fromTo.get(1), true);
+
+        if(this.board.gameOver())
+          ((TerminalGraphicsX) this.graphics).gameOver();
 
       }  catch (IllegalChessMovementException e){
         // user type valid command (two cells)

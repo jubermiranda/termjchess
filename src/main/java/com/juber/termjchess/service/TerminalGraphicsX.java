@@ -24,10 +24,12 @@ public class TerminalGraphicsX implements GraphicsProvider {
   private GameWarning lastWarning;
   private char[][] frame;
   private TermPrinter printer;
+  private boolean gameOver;
 
   public TerminalGraphicsX() {
     this.state = State.CREATED;
     this.turn_0 = true;
+    this.gameOver = false;
     this.lastWarning = null;
     this.printer = new TermPrinter(STD_SPRITE_SIZE, 1);
 
@@ -54,41 +56,49 @@ public class TerminalGraphicsX implements GraphicsProvider {
       return;
 
     this.updateFrame();
-
-    this.printer.printBuffer(this.frame);
+    TermPrinter.clearScreen();
+    TermPrinter.printBuffer(this.frame);
   }
 
+  @Override
+  public void stopEngine() {
+    if (this.piecesOnBoard != null)
+      this.piecesOnBoard.clear();
+    this.state = State.STOPPED;
+  }
+
+  @Override
   public void showWarning(GameWarning w) {
     this.lastWarning = w;
   }
 
+  @Override
   public void showCheckmate(String cellName) {
     return;
   }
 
+  @Override
   public void updateTurn(boolean isTurn0) {
     this.turn_0 = isTurn0;
+  }
+
+  @Override
+  public void hintCells(ArrayList<String> cells) {
+    this.hintCells(cells, GameWarning.STD_DURATION);
   }
 
   public void hintCells(ArrayList<String> cells, int duration) {
     this.printer.updateHints(cells);
   }
 
-  public void hintCells(ArrayList<String> cells) {
-    this.hintCells(cells, GameWarning.STD_DURATION);
+  public void gameOver(){
+    this.gameOver = true;
   }
 
-  public void stopEngine(boolean gameOverAnimation) {
-    if (this.piecesOnBoard != null)
-      this.piecesOnBoard.clear();
-    this.state = State.STOPPED;
-    if(gameOverAnimation)
-      this.playGameOverAnimation();
-  }
-
-  public void stopEngine(){
-    this.stopEngine(false);
-  }
+  //
+  //
+  //
+  // --
 
   private void updateFrame() {
     for(int i=0; i < 8; i++){
@@ -109,6 +119,9 @@ public class TerminalGraphicsX implements GraphicsProvider {
         );
       }
     }
+
+    if(this.gameOver)
+      this.drawnGameOverFrame();
   }
 
   private char[][] chooseSprite(BasePiece value){
@@ -147,12 +160,43 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.clearScreen();
     this.drawnHomeScreen();
 
-    TermPrinter.printProgressBar();
+    //TermPrinter.printProgressBar();
     TermPrinter.clearScreen();
   }
 
-  private void playGameOverAnimation(){
-    TermPrinter.playGameOver(this.frame);
+  private void drawnGameOverFrame(){
+    char[][] gameOverSprite = ChessSpriteXProvider.GameOver;
+    int boxStartRow = 30;
+    int boxStartCol = 30;
+    int spacing = 8;
+    int boxEndRow = boxStartRow + gameOverSprite.length + (2*spacing);
+    int boxEndCol = boxStartCol + gameOverSprite[0].length + (2*spacing);
+
+    //clear frame around game-over sprite
+    TermPrinter.clearFrame(
+        this.frame,
+        boxStartRow - spacing,
+        boxStartCol - spacing,
+        boxEndRow + spacing,
+        boxEndCol + spacing
+    );
+
+    // drawn a box to put game-over sprite inside, with spacing around
+    TermPrinter.drawBox(
+        this.frame,
+        boxStartRow,
+        boxStartCol,
+        boxEndRow,
+        boxEndCol
+    );
+
+    // drawn game-over sprite inside box
+    TermPrinter.drawSprite(
+        gameOverSprite,
+        boxStartRow + spacing,
+        boxStartCol + spacing,
+        this.frame
+    );
   }
 
   void drawnHomeScreen(){
@@ -163,6 +207,6 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.drawBox(homeScreen, 0, 0, 24, 179);
     TermPrinter.drawSprite(logo, 12, 60, homeScreen);
 
-    this.printer.printBuffer(homeScreen);
+    TermPrinter.printBuffer(homeScreen);
   }
 }

@@ -127,17 +127,18 @@ public class TermPrinter {
     out[sRow][eCol] = BoxChar.TR_CORNER;
     out[eRow][sCol] = BoxChar.BL_CORNER;
     out[eRow][eCol] = BoxChar.BR_CORNER;
-    for(int j=sCol + 1; j < eCol; j++){
-      out[sRow][sCol+j] = BoxChar.H_LINE;
-      out[eRow][sCol+j] = BoxChar.H_LINE;
+
+    for(int j = sCol + 1; j < eCol; j++){
+      out[sRow][j] = BoxChar.H_LINE;
+      out[eRow][j] = BoxChar.H_LINE;
     }
-    for(int j=sRow + 1; j < eRow; j++){
-      out[sRow+j][sCol] = BoxChar.V_LINE;
-      out[sRow+j][eCol] = BoxChar.V_LINE;
+    for(int j = sRow + 1; j < eRow; j++){
+      out[j][sCol] = BoxChar.V_LINE;
+      out[j][eCol] = BoxChar.V_LINE;
     }
   }
 
-  public void printBuffer(char[][] buffer){
+  public static void printBuffer(char[][] buffer){
     for(int i=0; i < buffer.length; i++){
       for(int j=0; j < buffer[i].length; j++){
         // String color = getApropriateColor(i, j);
