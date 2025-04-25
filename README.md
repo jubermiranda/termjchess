@@ -54,7 +54,7 @@ Após compilar, você pode executar o projeto e os testes com os seguintes coman
 
 ## Estrutura de pacotes
 
-O projeto segue a convenção de pacotes Java, com o namespace principal sendo `com.juber.termjchess`, contendo subpacotes organizados por domínio como `model`, `service, entre outros.
+O projeto segue a convenção de pacotes Java, com o namespace principal sendo `com.juber.termjchess`, contendo subpacotes organizados por domínio como `model`, `service`, entre outros.
 
 ---
 
