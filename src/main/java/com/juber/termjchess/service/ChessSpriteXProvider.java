@@ -20,8 +20,9 @@ public class ChessSpriteXProvider {
   private static final String brook_file = "rook_b";
   private static final String wqueen_file = "queen_w";
   private static final String bqueen_file = "queen_b";
-
   private static final String logo_file = "logo";
+  private static final String game_over_file = "game_over";
+
   private static final int LABEL_ROW_SIZE = 5;
   private static final int LABEL_COL_SIZE = 8;
 
@@ -44,6 +45,8 @@ public class ChessSpriteXProvider {
   public static final char[][] BQueenSprite = loadSprite(bqueen_file);
 
   public static final char[][] LogoSprite = loadSprite(logo_file);
+
+  public static final char[][] GameOver = loadSprite(game_over_file);
 
   public static char[][] EmptySprite(int rows, int cols){
     if(rows <=0 || rows <= 0)

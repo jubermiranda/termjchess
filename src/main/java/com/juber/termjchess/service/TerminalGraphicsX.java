@@ -78,10 +78,16 @@ public class TerminalGraphicsX implements GraphicsProvider {
     this.hintCells(cells, GameWarning.STD_DURATION);
   }
 
-  public void stopEngine() {
+  public void stopEngine(boolean gameOverAnimation) {
     if (this.piecesOnBoard != null)
       this.piecesOnBoard.clear();
     this.state = State.STOPPED;
+    if(gameOverAnimation)
+      this.playGameOverAnimation();
+  }
+
+  public void stopEngine(){
+    this.stopEngine(false);
   }
 
   private void updateFrame() {
@@ -145,6 +151,10 @@ public class TerminalGraphicsX implements GraphicsProvider {
     TermPrinter.clearScreen();
   }
 
+  private void playGameOverAnimation(){
+    TermPrinter.playGameOver(this.frame);
+  }
+
   void drawnHomeScreen(){
     char[][] homeScreen = new char[25][180];
     char[][] logo = ChessSpriteXProvider.LogoSprite;
@@ -155,8 +165,4 @@ public class TerminalGraphicsX implements GraphicsProvider {
 
     this.printer.printBuffer(homeScreen);
   }
-
-  
-
-  
 }
