@@ -1,68 +1,124 @@
+
 # TermJChess
 
-**TermJChess** é uma implementação de xadrez jogável no terminal, desenvolvida em Java, com foco em aprendizado de **programação orientada a objetos**, organização modular e testes automatizados utilizando JUnit 5.
+**TermJChess** é uma implementação de xadrez jogável no terminal, desenvolvida em Java. O projeto tem como foco o aprendizado de **programação orientada a objetos**, organização modular e a prática de **testes automatizados** com JUnit 5.
 
 ---
 
-## Como compilar
+## 🔧 Como compilar
 
-Para compilar o projeto, utilize os scripts localizados no diretório `tools/`.
+Scripts para compilação estão disponíveis no diretório `tools/`, separados por sistema operacional:
+
+### Linux
 
 - **Compilar tudo (projeto e testes):**
   ```bash
-  ./tools/compile_all.sh
+  ./tools/linux/compile_all.sh
   ```
 
 - **Compilar apenas o projeto:**
   ```bash
-  ./tools/compile.sh
+  ./tools/linux/compile.sh
   ```
 
 - **Compilar apenas os testes:**
   ```bash
-  ./tools/compile_tests.sh
+  ./tools/linux/compile_tests.sh
+  ```
+
+### Windows
+
+- **Compilar tudo (projeto e testes):**
+  ```bat
+  tools\windows\compile_all.bat
+  ```
+
+- **Compilar apenas o projeto:**
+  ```bat
+  tools\windows\compile.bat
+  ```
+
+- **Compilar apenas os testes:**
+  ```bat
+  tools\windows\compile_tests.bat
   ```
 
 ---
 
-## Como rodar
+## ▶️  Como rodar
 
-Após compilar, você pode executar o projeto e os testes com os seguintes comandos:
+Após compilar, utilize os seguintes scripts para executar o projeto e os testes.
+
+### Linux
 
 - **Executar o projeto:**
   ```bash
-  ./tools/run.sh
+  ./tools/linux/run.sh
   ```
 
 - **Executar todos os testes:**
   ```bash
-  ./tools/test_run.sh
+  ./tools/linux/test_run.sh
   ```
 
-- **Executar testes para uma classe específica:**
+- **Executar testes de uma classe específica:**
   ```bash
-  ./tools/test_class.sh <relative_package_path>
+  ./tools/linux/test_class.sh <relative path name>
   ```
-  **Exemplo:**
+  onde <relative path name> é o caminho relativo a com.juber.termjchess
+  exemplo: para rodar os testes para a classe Board que está em com.juber.termjchess.model.board.Board
   ```bash
-  ./tools/test_class.sh model.board.Board
+  ./tools/linux/test_class.sh model.board.Board
+  ```
+> Isso executará os testes da classe `BoardTest`, assumindo que seu nome completo seja `com.juber.termjchess.model.board.BoardTest`.
+
+
+
+### Windows
+
+- **Executar o projeto:**
+  ```bat
+  tools\windows\run.bat
   ```
 
-  Isso executará os testes da classe `BoardTest`, assumindo que seu nome completo seja `com.juber.termjchess.model.board.BoardTest`.
+- **Executar todos os testes:**
+  ```bat
+  tools\windows\test_run.bat
+  ```
+
+- **Executar testes de uma classe específica:**
+  ```bat
+  tools\windows\test_class.bat model.board.Board
+  ```
+  onde <relative path name> é o caminho relativo a com.juber.termjchess
+  exemplo: para rodar os testes para a classe Board que está em com.juber.termjchess.model.board.Board
+  ```bash
+  ./tools/linux/test_class.sh model.board.Board
+  ```
+> Isso executará os testes da classe `BoardTest`, assumindo que seu nome completo seja `com.juber.termjchess.model.board.BoardTest`.
 
 ---
 
-## Estrutura de pacotes
-
-O projeto segue a convenção de pacotes Java, com o namespace principal sendo `com.juber.termjchess`, contendo subpacotes organizados por domínio como `model`, `service`, entre outros.
-
----
-
-## Dependências
+## 📦 Dependências
 
 - Java 17+
 - [JUnit Platform Console Standalone 1.11.4]
 
-O JAR do JUnit deve estar localizado em `lib/junit-platform-console-standalone-1.11.4.jar`.
+O arquivo `.jar` do JUnit deve estar localizado em:
+
+```
+lib/junit-platform-console-standalone-1.11.4.jar
+```
 
 ---
+
+## 🖥️ Recomendações de terminal
+
+O tabuleiro desenhado com caracteres ocupa bastante espaço. Para uma boa experiência visual, recomenda-se **diminuir o tamanho da fonte do terminal**. O tamanho **5** apresentou bons resultados durante os testes.
+
+---
+
+## 📃 Licença
+
+Distribuído sob a [Licença MIT](LICENSE).
+--
