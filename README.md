@@ -65,7 +65,7 @@ Após compilar, utilize os seguintes scripts para executar o projeto e os testes
   ```bash
   ./tools/linux/test_class.sh <relative path name>
   ```
-  onde <relative path name> é o caminho relativo a com.juber.termjchess
+  onde 'relative path name' é o caminho relativo a com.juber.termjchess
   exemplo: para rodar os testes para a classe Board que está em com.juber.termjchess.model.board.Board
   ```bash
   ./tools/linux/test_class.sh model.board.Board
@@ -88,9 +88,9 @@ Após compilar, utilize os seguintes scripts para executar o projeto e os testes
 
 - **Executar testes de uma classe específica:**
   ```bat
-  tools\windows\test_class.bat model.board.Board
+  tools\windows\test_class.bat <relative path name>
   ```
-  onde <relative path name> é o caminho relativo a com.juber.termjchess
+  onde 'relative path name' é o caminho relativo a com.juber.termjchess
   exemplo: para rodar os testes para a classe Board que está em com.juber.termjchess.model.board.Board
   ```bash
   ./tools/linux/test_class.sh model.board.Board
