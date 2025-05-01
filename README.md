@@ -112,6 +112,28 @@ lib/junit-platform-console-standalone-1.11.4.jar
 
 ---
 
+## Como Jogar
+
+Ao iniciar o jogo (e após cada comando), o tabuleiro será exibido e o jogo aguardará a entrada de um novo comando.
+
+Para realizar um movimento, digite um comando no formato:
+
+```
+<casa-origem> <casa-destino>
+```
+
+Onde:
+- `<casa-origem>` é a posição da peça que se deseja mover;
+- `<casa-destino>` é a posição para onde a peça deve ser movida.
+
+Por exemplo:
+```
+e2 e4
+```
+Esse comando move o peão da casa `e2` para a casa `e4`.
+
+---
+
 ## 🖥️ Recomendações de terminal
 
 O tabuleiro desenhado com caracteres ocupa bastante espaço. Para uma boa experiência visual, recomenda-se **diminuir o tamanho da fonte do terminal**. O tamanho **5** apresentou bons resultados durante os testes.
